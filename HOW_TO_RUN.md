@@ -17,6 +17,7 @@ Dieses Dokument erklärt, was JAX-FEM ist, wie es funktioniert und wie du es Sch
 9. [Unterstützte Elementtypen](#9-unterstützte-elementtypen)
 10. [Randbedingungen verstehen](#10-randbedingungen-verstehen)
 11. [Häufige Fehler und Lösungen](#11-häufige-fehler-und-lösungen)
+12. [Ergebnis & Visualisierung – Spannungen, Dehnungen, Trajektorien](#12-ergebnis--visualisierung--spannungen-dehnungen-trajektorien)
 
 ---
 
@@ -585,6 +586,134 @@ pv.set_jupyter_backend('static')  # Statische Bilder statt interaktivem Fenster
 ### Simulation ist sehr langsam beim ersten Aufruf
 
 **Erwartetes Verhalten.** JAX kompiliert den Code beim ersten Aufruf zu optimiertem Maschinencode (JIT – Just-in-Time Compilation). Das dauert einige Sekunden bis Minuten. Beim zweiten Aufruf mit gleichen Dimensionen ist die Simulation deutlich schneller.
+
+---
+
+## 12. Ergebnis & Visualisierung – Spannungen, Dehnungen, Trajektorien
+
+Das Notebook `experimental.ipynb` zeigt am Kragarm-Beispiel, wie man über die reinen Verschiebungen hinaus alle mechanisch relevanten Größen auswertet und visualisiert. Abschnitt 5 des Notebooks ist in fünf Unterabschnitte gegliedert.
+
+---
+
+### 12.1 Verschiebungen & Vergleich mit Euler-Bernoulli (5.1)
+
+| Größe | Symbol | Einheit | Plottyp |
+|---|---|---|---|
+| Vertikale Durchbiegung | u_y | m | `tripcolor`, RdBu_r |
+| Horizontale Verschiebung | u_x | m | `tripcolor`, viridis |
+
+Die maximale Durchbiegung am freien Ende wird automatisch mit der **Euler-Bernoulli-Balkentheorie** verglichen:
+
+```
+w_max = F·L³ / (3·E·I)
+```
+
+Dabei gilt für einen rechteckigen Querschnitt mit Breite b = 1 m (Scheibendicke) und Höhe h:
+
+```
+I = b·h³ / 12
+```
+
+Die Abweichung zwischen FEM und analytischer Lösung liegt bei feiner Vernetzung typischerweise unter 1 %.
+
+---
+
+### 12.2 Spannungen (5.2)
+
+Spannungen sind **keine** direkten Knotengrößen – JAX-FEM speichert nur Verschiebungen. Sie müssen nachträglich aus dem Verschiebungsgradienten berechnet werden.
+
+#### Berechnungsweg
+
+1. **Gauss-Punkt-Auswertung:** Für jedes Element werden an den 4 Gauss-Punkten (2×2-Quadratur für QUAD4) die Ansatzfunktionsableitungen ∂N/∂x im physikalischen Raum bestimmt.
+2. **Verschiebungsgradient:** ∇u = (∂N/∂x)ᵀ · u_cell  →  (2×2)-Matrix
+3. **Dehnung (lineare Kinematik):** ε = ½(∇u + ∇uᵀ)
+4. **Spannung (Hooke'sches Gesetz):**
+
+```
+σ_xx = (λ + 2μ)·ε_xx + λ·ε_yy
+σ_yy =  λ·ε_xx + (λ + 2μ)·ε_yy
+τ_xy =  2μ·ε_xy
+```
+
+5. **Extrapolation auf Knoten:** Nearest-Neighbor-Zuordnung (via `scipy.spatial.cKDTree`) – jedem Knoten wird der nächstgelegene Gauss-Punkt zugewiesen.
+
+#### Dargestellte Größen
+
+| Größe | Symbol | Beschreibung |
+|---|---|---|
+| Normalspannung längs | σ_xx | Biegespannung (dominant) |
+| Normalspannung quer | σ_yy | Querspannung |
+| Schubspannung | τ_xy | Schubspannung in der Querschnittsebene |
+| Von-Mises-Vergleichsspannung | σ_v | Plastizitätskriterium: `√(σ_xx²− σ_xx·σ_yy + σ_yy² + 3τ_xy²)` |
+
+> **Hinweis:** Der ebene Spannungszustand (σ_zz = τ_xz = τ_yz = 0) ist für eine dünne Scheibe physikalisch korrekt. Bei einem dicken 3D-Körper wäre der ebene Verzerrungszustand zu wählen – dann ändern sich λ_eff und μ_eff.
+
+---
+
+### 12.3 Dehnungen (5.3)
+
+Analog zu den Spannungen werden die Dehnungskomponenten dargestellt:
+
+| Größe | Symbol | Beschreibung |
+|---|---|---|
+| Längsdehnung | ε_xx | Biegung → oben Druck, unten Zug |
+| Querdehnung | ε_yy | Poissoneffekt |
+| Gleitungsmaß | γ_xy / 2 = ε_xy | Schubverzerrung |
+| Erste Hauptdehnung | ε₁ | `½(ε_xx+ε_yy) + √[(½(ε_xx−ε_yy))² + ε_xy²]` |
+
+Die **Hauptdehnungen** sind die Eigenwerte des Dehnungstensors – sie zeigen die größte Längenänderung unabhängig von der Koordinatenrichtung.
+
+---
+
+### 12.4 Hauptspannungen & Trajektorien (5.4)
+
+#### Hauptspannungsberechnung
+
+Die Hauptspannungen sind die Eigenwerte des 2D-Spannungstensors:
+
+```
+σ₁,₂ = ½(σ_xx + σ_yy) ± √[ (½(σ_xx − σ_yy))² + τ_xy² ]
+```
+
+Der zugehörige Winkel der ersten Hauptspannungsrichtung:
+
+```
+θ = ½ · arctan(2τ_xy / (σ_xx − σ_yy))
+```
+
+#### Trajektorien-Plot
+
+Das Notebook zeigt **doppelköpfige Pfeile** auf einem regulären Gitter (25×6 Punkte), interpoliert mit `scipy.interpolate.LinearNDInterpolator`:
+
+- **Rot** → Richtung von σ₁ (erste Hauptspannung)
+- **Blau** → Richtung von σ₂ (zweite Hauptspannung, senkrecht zu σ₁)
+- **Grün** → σ₁-Isobare (Konturlinien gleicher erster Hauptspannung)
+- **Grauer Hintergrund** → von-Mises-Vergleichsspannung
+
+> **Physikalische Interpretation am Kragarm:**
+> - An der **Einspannung** (x = 0): σ₁ verläuft fast horizontal (dominante Biegespannung), σ₂ nahezu vertikal
+> - In der **Nähe der neutralen Faser** (y = h/2): Schubspannung dominiert → Hauptspannungen unter ±45°
+> - Am **freien Ende** (x = L): Spannungen gering (nur Last-Einleitung)
+
+---
+
+### 12.5 Querschnittsplot – FEM vs. Analytik (5.5)
+
+Der abschließende Plot schneidet den Träger an zwei Stellen (x ≈ 0 und x = L/2) auf und vergleicht die FEM-Biegespannung σ_xx mit der Euler-Bernoulli-Lösung:
+
+```
+σ_xx(y) = M(x) · (y − h/2) / I
+```
+
+mit M(x) = F·(L − x) (Biegemoment bei Einzellast am Kragarm-Ende).
+
+Die lineare Verteilung über die Höhe ist das charakteristische Kennzeichen der Biegetheorie. Das FEM-Ergebnis sollte bei ausreichend feiner Diskretisierung (≥ 4 Elemente über die Höhe) sehr gut übereinstimmen.
+
+---
+
+### Warum Nearest-Neighbor statt SPR-Glättung?
+
+Die hier verwendete einfache Nearest-Neighbor-Extrapolation ist robust und schnell, aber nicht optimal. Für höhere Genauigkeit könnte man das **Superconvergent Patch Recovery (SPR)**-Verfahren verwenden – dabei werden die Gauss-Punktwerte in einem Patch um jeden Knoten durch ein Polynom angepasst. Der Aufwand ist deutlich höher, der Gewinn bei ausreichend feinen Netzen aber gering.
 
 ---
 
