@@ -1,0 +1,22 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Motivation und Einordnung}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Einordnung in den Projektkontext}{3}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Pipeline-Architektur}{3}{section.2}%
+\contentsline {section}{\numberline {3}Konfigurationsparameter}{3}{section.3}%
+\contentsline {section}{\numberline {4}Scene Graph — Formale Beschreibung}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Graphstruktur}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Automatische Ableitung von Randbedingungen}{4}{subsection.4.2}%
+\contentsline {section}{\numberline {5}FEM-Formulierung}{5}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Konstitutives Gesetz — Lineare 3D-Elastizität}{5}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Effektives Material (Volumenhomogenisierung)}{5}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Randwertproblem}{5}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Von-Mises-Vergleichsspannung}{5}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Diskretisierung — Tet4-Element}{5}{subsection.5.5}%
+\contentsline {section}{\numberline {6}Ergebnisse — Erster Meilenstein}{6}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Modell}{6}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}FEM-Ergebnisse}{6}{subsection.6.2}%
+\contentsline {section}{\numberline {7}LLM-Integration}{6}{section.7}%
+\contentsline {section}{\numberline {8}Vergleich mit dem Vorgänger-Notebook}{7}{section.8}%
+\contentsline {section}{\numberline {9}Bekannte Einschränkungen (Version 1.0)}{7}{section.9}%
+\contentsline {section}{\numberline {10}Nächste Entwicklungsschritte}{7}{section.10}%
+\contentsline {section}{\numberline {11}Abhängigkeiten}{7}{section.11}%

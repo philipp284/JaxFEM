@@ -3,8 +3,8 @@ title: "JaxFEM Notebooks — BIM-native FEM-Templates für das Bauingenieurwesen
 type: project
 scope: research + development + teaching
 status: active
-last_updated: "2026-04-20"
-technology: [Python, JaxFEM, JAX, IfcOpenShell, GMSH, meshio, PyVista, IFC4, HEX8, TET4, Eurocode]
+last_updated: "2026-04-25"
+technology: [Python, JaxFEM, JAX, IfcOpenShell, GMSH, meshio, PyVista, IFC4, HEX8, TET4, Eurocode, NetworkX, DBSCAN, SceneGraph, LLM-Prompt]
 domain: [BIM, Strukturmechanik, FEM, Bauingenieurwesen, Lehre, Digitales Bauen]
 institution: Hochschule Mainz — Tragwerkslabor
 related:

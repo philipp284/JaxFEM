@@ -1,0 +1,460 @@
+\documentclass[a4paper,11pt]{article}
+
+% ── Pakete ──────────────────────────────────────────────────────────────
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{geometry}
+\geometry{left=25mm, right=25mm, top=30mm, bottom=30mm, headheight=15pt}
+
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage{parskip}
+
+% ── Farben ──────────────────────────────────────────────────────────────
+\definecolor{hsm-blue}{RGB}{0,83,156}
+\definecolor{hsm-green}{RGB}{0,153,100}
+\definecolor{code-bg}{RGB}{245,245,245}
+\definecolor{code-kw}{RGB}{0,83,156}
+\definecolor{code-str}{RGB}{163,21,21}
+\definecolor{code-comment}{RGB}{100,130,100}
+
+% ── Code-Listings ────────────────────────────────────────────────────────
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{code-bg},
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{code-kw}\bfseries,
+  stringstyle=\color{code-str},
+  commentstyle=\color{code-comment}\itshape,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  numbersep=8pt,
+  frame=single,
+  framesep=4pt,
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4,
+  showstringspaces=false,
+  captionpos=b,
+  xleftmargin=12pt,
+}
+\lstset{style=python}
+
+% ── Hyperlinks ───────────────────────────────────────────────────────────
+\hypersetup{
+  colorlinks=true,
+  linkcolor=hsm-blue,
+  urlcolor=hsm-blue,
+  citecolor=hsm-blue,
+  pdftitle={IFC → Scene Graph → JaxFEM},
+  pdfauthor={Philipp Schäfer, Hochschule Mainz},
+}
+
+% ── Kopf-/Fußzeile ───────────────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textcolor{hsm-blue}{\small IFC $\to$ Scene Graph $\to$ JaxFEM}}
+\fancyhead[R]{\textcolor{gray}{\small Tragwerkslabor · Hochschule Mainz}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ── Überschriften ────────────────────────────────────────────────────────
+\titleformat{\section}{\large\bfseries\color{hsm-blue}}{}{0em}{\thesection\quad}
+\titleformat{\subsection}{\normalsize\bfseries\color{hsm-blue}}{}{0em}{\thesubsection\quad}
+
+% ── Titelseite ───────────────────────────────────────────────────────────
+\title{
+  \vspace{-1cm}
+  {\color{hsm-blue}\rule{\linewidth}{2pt}}\\[0.6cm]
+  {\LARGE\bfseries IFC $\to$ Scene Graph $\to$ JaxFEM}\\[0.3cm]
+  {\large Meilenstein-Dokumentation | Version 1.0}\\[0.2cm]
+  {\color{hsm-blue}\rule{\linewidth}{1pt}}\\[0.3cm]
+  {\normalsize\color{gray}
+    Automatische FEM-Berechnung aus IFC-Gebäudemodellen\\
+    via semantischen Scene Graphs und NetworkX DiGraph
+  }
+}
+\author{
+  Philipp Schäfer\\
+  \small Tragwerkslabor · Hochschule Mainz\\
+  \small \texttt{philipp.schaefer@hs-mainz.de}
+}
+\date{\small April 2026}
+
+% ═══════════════════════════════════════════════════════════════════════
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+% ── Abstract ────────────────────────────────────────────────────────────
+\begin{abstract}
+\noindent
+Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollautomatische Kette von einem IFC-Gebäudemodell über einen semantischen Scene Graph bis zu einer FEM-Berechnung mit dem JAX-basierten Solver JaxFEM. Randbedingungen, Lastflächen und Materialkennwerte werden automatisch aus der Graph-Topologie und den IFC-Properties abgeleitet. Die Ergebnisse (Verschiebungen, Von-Mises-Spannungen) werden in den Scene Graph zurückgeschrieben und als strukturierter LLM-Prompt exportiert. Der erste vollständige Durchlauf mit 149 IFC-Bauteilen, 1\,958 Tet4-Elementen und 1\,917 Freiheitsgraden war erfolgreich.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Motivation und Einordnung}
+
+Die manuelle Vorbereitung von FEM-Modellen aus BIM-Daten ist in der Praxis ein erheblicher Aufwand: Geometrieimport, Randbedingungsdefinition, Netzerstellung und Materialzuweisung werden heute in RFEM, ANSYS oder ähnlichen Programmen weitgehend per Hand durchgeführt. Ziel dieser Pipeline ist die vollständige Automatisierung dieses Prozesses auf Basis von Open-Source-Werkzeugen.
+
+Zusätzlich zur reinen Geometrieverarbeitung wird die \textbf{semantische Struktur des Gebäudes} als gerichteter Graph (Scene Graph) modelliert. Dieser Graph dient als Wissensrepräsentation für automatische Schlussfolgerungen über Bauteilbeziehungen, Randbedingungen und Lastpfade — und ist direkt als Kontext für Large Language Models (LLMs) nutzbar.
+
+\subsection{Einordnung in den Projektkontext}
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Vorgänger:} \texttt{IFC\_FEM\_3D.ipynb} — BBox-Netz, manuelle Randbedingungen, erste funktionierende IFC-to-JaxFEM-Pipeline
+  \item \textbf{Dieses Notebook:} Echte IFC-Geometrie, automatischer Scene Graph, automatische BCs
+  \item \textbf{Nächste Stufe:} Heterogenes Materialfeld, LLM-Auto-Call, CesiumJS-Ergebnisrückfluss
+\end{itemize}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Pipeline-Architektur}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.92\textwidth}
+\begin{lstlisting}[language={},style={},
+  backgroundcolor=\color{code-bg},
+  basicstyle=\ttfamily\footnotesize,
+  frame=single, numbers=none]
+IFC-Datei (IfcOpenShell)
+   +-- Bauteil-Parsing (IfcWall, IfcColumn, IfcSlab, ...)
+   |       +-- BBox + Schwerpunkt (Weltkoordinaten, m)
+   |       +-- Material (E, nu aus Pset_MaterialMechanical)
+   +-- IFC-Relationship-Analyse
+   |       +-- IfcRelAggregates       -> contains / part_of
+   |       +-- IfcRelContainedInSpatialStructure -> hosted_in
+   |       +-- IfcRelAssociatesMaterial -> shared_material
+   |       +-- BBox-Spatial           -> above/adjacent/near
+   +-- DBSCAN-Clustering (pro Label)
+   +-- Feature-Extraktion (Volumen, Hoehe, Kompaktheit)
+   +-- NetworkX DiGraph (Scene Graph)
+   |       +-- Graphanalyse -> BC + Lastflaechen
+   |       +-- Material-Mapping (volumengew. E_eff)
+   +-- GMSH Tet4-Netz (echte IFC-Geometrie)
+   +-- JaxFEM Solver (lineare 3D-Elastizitaet)
+   +-- Ergebnisse -> Scene Graph -> LLM-Prompt
+\end{lstlisting}
+\end{minipage}
+\caption{Vollständige Pipeline \texttt{IFC\_SceneGraph\_FEM.ipynb}}
+\end{figure}
+
+\textbf{Einheiten:} kN und m durchgängig (E-Modul in kN/m², Verschiebungen in mm für Ausgabe).
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Konfigurationsparameter}
+
+Alle Parameter sind in Schritt~1 des Notebooks zentral konfigurierbar:
+
+\begin{table}[H]
+\centering
+\caption{Konfigurationsparameter}
+\begin{tabular}{lrl}
+\toprule
+\textbf{Parameter} & \textbf{Standardwert} & \textbf{Bedeutung} \\
+\midrule
+\texttt{USE\_DEMO\_MODEL} & \texttt{False} & Demo-IFC oder eigene Datei \\
+\texttt{MESH\_SIZE} & 1{,}0\,m & Tet4-Elementgröße \\
+\texttt{E\_DEFAULT} & 30\,000\,000\,kN/m² & Fallback E-Modul (C25/30) \\
+\texttt{NU\_DEFAULT} & 0{,}2 & Fallback Querdehnzahl \\
+\texttt{GAMMA\_BETON} & 25{,}0\,kN/m³ & Wichte Stahlbeton \\
+\texttt{Q\_NUTZLAST} & 5{,}0\,kN/m² & Charakteristische Nutzlast \\
+\texttt{DBSCAN\_EPS} & 0{,}6\,m & Clustering-Radius \\
+\texttt{DBSCAN\_MIN\_SAMPLES} & 5 & Mindestpunkte pro Cluster \\
+\texttt{REL\_THRESHOLD} & 5{,}0\,m & Max. Distanz für Graphkante \\
+\texttt{ADJ\_TOLERANCE} & 0{,}05\,m & BBox-Berührungs-Toleranz \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Scene Graph — Formale Beschreibung}
+
+\subsection{Graphstruktur}
+
+Der Scene Graph $G = (V, E)$ ist ein gerichteter Graph (NetworkX \texttt{DiGraph}).
+
+\textbf{Knotenmenge $V$:} Jeder Knoten $v_i \in V$ repräsentiert eine Bauteilinstanz (nach DBSCAN-Clustering) mit den Attributen:
+\[
+  v_i = \bigl(\,\text{label},\; \text{IFC-Name},\; \mathbf{x}_c,\; V_i,\; h_i,\; E_i,\; \nu_i,\; \ldots\bigr)
+\]
+
+\textbf{Kantenmenge $E$:} Jede Kante $e_{ij} \in E$ trägt einen Beziehungstyp $r$ und eine Quelle $s \in \{\text{ifc}, \text{geometric}\}$:
+
+\begin{table}[H]
+\centering
+\caption{Kanten-Typen im Scene Graph}
+\begin{tabular}{lll}
+\toprule
+\textbf{Typ} & \textbf{Quelle} & \textbf{Bedeutung} \\
+\midrule
+\texttt{above / below} & geometrisch & Vertikale Lagebeziehung ($\Delta z > 0{,}5$\,m) \\
+\texttt{adjacent} & geometrisch & BBox-Abstand $< \varepsilon_\text{adj}$ \\
+\texttt{near} & geometrisch & Abstand $< d_\text{rel}$ \\
+\texttt{inside / contains} & geometrisch & BBox-Einschachtelung \\
+\texttt{part\_of / contains} & IFC & \texttt{IfcRelAggregates} \\
+\texttt{hosted\_in} & IFC & \texttt{IfcRelContainedInSpatialStructure} \\
+\texttt{shared\_material} & IFC & \texttt{IfcRelAssociatesMaterial} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Automatische Ableitung von Randbedingungen}
+
+Die Graphanalyse leitet aus der Topologie automatisch FEM-Randbedingungen ab:
+
+\begin{table}[H]
+\centering
+\caption{Graph-Topologie → FEM-Randbedingungen}
+\begin{tabular}{ll}
+\toprule
+\textbf{Graph-Eigenschaft} & \textbf{FEM-Ableitung} \\
+\midrule
+\texttt{wall}/\texttt{column} ohne eingehende \texttt{below}-Kante & Einspannung am Fuß ($z = z_\text{min}$) \\
+\texttt{slab} mit ausgehender \texttt{above}-Kante & Lastfläche oben \\
+\texttt{slab} auf höchster $z$-Ebene & Primäre Lastauflagefläche \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{FEM-Formulierung}
+
+\subsection{Konstitutives Gesetz — Lineare 3D-Elastizität}
+
+Das Materialverhalten wird durch das isotrope Hooke'sche Gesetz beschrieben:
+
+\begin{equation}
+  \boldsymbol{\sigma} = \lambda\,\mathrm{tr}(\boldsymbol{\varepsilon})\,\mathbf{I} + 2\mu\,\boldsymbol{\varepsilon}
+\end{equation}
+
+mit dem symmetrischen Verzerrungstensor:
+\begin{equation}
+  \boldsymbol{\varepsilon} = \frac{1}{2}\left(\nabla\mathbf{u} + (\nabla\mathbf{u})^\top\right)
+\end{equation}
+
+und den Lamé-Parametern:
+\begin{equation}
+  \lambda = \frac{E\,\nu}{(1+\nu)(1-2\nu)}, \qquad
+  \mu = \frac{E}{2(1+\nu)}
+\end{equation}
+
+\subsection{Effektives Material (Volumenhomogenisierung)}
+
+Das effektive Material des Gesamtsystems wird volumengewichtet berechnet:
+\begin{equation}
+  E_\text{eff} = \frac{\sum_i E_i \cdot V_i}{\sum_i V_i}, \qquad
+  \nu_\text{eff} = \frac{\sum_i \nu_i \cdot V_i}{\sum_i V_i}
+\end{equation}
+
+\subsection{Randwertproblem}
+
+Gesucht ist das Verschiebungsfeld $\mathbf{u}: \Omega \to \mathbb{R}^3$ mit:
+\begin{align}
+  -\mathrm{div}\,\boldsymbol{\sigma} &= \mathbf{0} \quad \text{in } \Omega \\
+  \mathbf{u} &= \mathbf{0} \quad \text{auf } \Gamma_D \text{ (Einspannung)} \\
+  \boldsymbol{\sigma}\,\mathbf{n} &= \mathbf{q} \quad \text{auf } \Gamma_N \text{ (Flächenlast)}
+\end{align}
+
+mit $\mathbf{q} = (0,\,0,\,-q_\text{ges})^\top$ und $q_\text{ges} = \gamma \cdot h + q_\text{Nutz}$.
+
+\subsection{Von-Mises-Vergleichsspannung}
+
+\begin{equation}
+  \sigma_\text{vM} = \sqrt{\frac{3}{2}\,\mathbf{s}:\mathbf{s}},
+  \qquad \mathbf{s} = \boldsymbol{\sigma} - \frac{1}{3}\,\mathrm{tr}(\boldsymbol{\sigma})\,\mathbf{I}
+\end{equation}
+
+\subsection{Diskretisierung — Tet4-Element}
+
+Lineares Tetraederelement mit 4 Knoten und 12 Freiheitsgraden. Die Formfunktions-Ableitungen im physikalischen Raum ergeben sich als:
+\begin{equation}
+  \frac{\partial N}{\partial \mathbf{x}} = \frac{\partial N}{\partial \boldsymbol{\xi}} \cdot \mathbf{J}^{-1},
+  \qquad
+  \mathbf{J} = \begin{bmatrix}
+    \mathbf{p}_2 - \mathbf{p}_1 \\
+    \mathbf{p}_3 - \mathbf{p}_1 \\
+    \mathbf{p}_4 - \mathbf{p}_1
+  \end{bmatrix}^\top
+\end{equation}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Ergebnisse — Erster Meilenstein}
+
+\subsection{Modell}
+
+Getestet mit: \texttt{Ifc2x3\_Duplex\_Architecture.ifc} (öffentliche IFC-Beispieldatei).
+
+\begin{table}[H]
+\centering
+\caption{Modell-Kenngrößen}
+\begin{tabular}{lr}
+\toprule
+\textbf{Kenngröße} & \textbf{Wert} \\
+\midrule
+IFC-Bauteile (gesamt) & 149 \\
+Graph-Knoten (nach Clustering) & 13 \\
+Graph-Kanten & 24 (IFC: 0 / Geo: 24) \\
+Tet4-Elemente & 1\,958 \\
+FEM-Knoten & 639 \\
+Freiheitsgrade (DOF) & 1\,917 \\
+$E_\text{eff}$ & 30\,000\,000\,kN/m² \\
+$\nu_\text{eff}$ & 0{,}20 \\
+Gesamtlast $q$ & 21{,}81\,kN/m² \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{FEM-Ergebnisse}
+
+\begin{table}[H]
+\centering
+\caption{FEM-Ergebnisse (Meilenstein 1)}
+\begin{tabular}{llr}
+\toprule
+\textbf{Größe} & \textbf{Symbol} & \textbf{Wert} \\
+\midrule
+Maximale z-Durchbiegung & $u_{z,\text{max}}$ & $-2{,}064$\,mm \\
+Maximale Gesamtverschiebung & $|\mathbf{u}|_\text{max}$ & $2{,}065$\,mm \\
+Maximale Von-Mises-Spannung & $\sigma_{\text{vM,max}}$ & $7\,529{,}7$\,kN/m² \\
+Minimale Druckspannung & $\sigma_{zz,\text{min}}$ & $-9\,072{,}6$\,kN/m² \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Einordnung:} $\sigma_{\text{vM,max}} = 7\,530$\,kN/m² $\approx 7{,}5$\,MPa liegt deutlich unter der charakteristischen Betondruckfestigkeit von $f_{ck} = 25$\,MPa (C25/30). Die Druckspannung $\sigma_{zz,\text{min}} = -9{,}1$\,MPa entspricht etwa $36\%$ von $f_{ck}$ — plausibel für eine Grobnetz-Rechnung mit $h = 1$\,m.
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{LLM-Integration}
+
+Der angereicherte Scene Graph wird als strukturierter Textprompt serialisiert, der direkt an Claude oder ein anderes LLM übergeben werden kann:
+
+\begin{lstlisting}[caption={LLM-Prompt-Schema (graph\_to\_llm\_prompt)}]
+=== IFC TRAGWERK - SCENE GRAPH + FEM-ERGEBNISSE ===
+
+BAUTEILE (Knoten):
+  [wall_0]  IFC=BasicWall:... (IfcWall)  Typ=wall
+            Schwerpunkt=(1.2, 0.1, 1.4) m  Volumen=3.136 m3
+            E=30000000 kN/m2  uz_min=-1.2 mm  sigma_vM=4200 kN/m2
+
+BEZIEHUNGEN (Kanten):
+  wall_0 -> slab_0  [adjacent | geometric]
+  slab_0 -> wall_1  [above    | geometric]
+
+KENNGROESSEN:
+  Gesamtlast  q  = 21.81 kN/m2
+  u_z_max       = -2.064 mm
+  sigma_vM_max  = 7529.7 kN/m2
+\end{lstlisting}
+
+Dieser Prompt ermöglicht es einem LLM, strukturmechanische Fragen zu beantworten wie:
+\begin{itemize}[noitemsep]
+  \item „Welches Bauteil ist am stärksten beansprucht?"
+  \item „Ist die Durchbiegung normkonform nach DIN EN 1990 ($l/300$)?"
+  \item „Welche Maßnahmen reduzieren die kritische Spannung?"
+\end{itemize}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Vergleich mit dem Vorgänger-Notebook}
+
+\begin{table}[H]
+\centering
+\caption{IFC\_FEM\_3D.ipynb vs. IFC\_SceneGraph\_FEM.ipynb}
+\begin{tabular}{lll}
+\toprule
+\textbf{Merkmal} & \textbf{IFC\_FEM\_3D} & \textbf{IFC\_SceneGraph\_FEM} \\
+\midrule
+Netzgeometrie & BBox-Tet4 & Echte IFC-Triangulierung \\
+Randbedingungen & Manuell & \textbf{Automatisch aus Graph} \\
+Lastflächen & Manuell & \textbf{Automatisch aus Topologie} \\
+Material & Manuell & \textbf{Automatisch aus IFC} \\
+Struktursemantik & Keine & \textbf{DiGraph, 9 Kanten-Typen} \\
+LLM-Export & Keine & \textbf{Strukturierter Prompt} \\
+Ergebnisrückfluss & Keine & \textbf{FEM $\to$ Graphknoten} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Bekannte Einschränkungen (Version 1.0)}
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{IFC-Kanten:} Im Duplex-Beispiel liefert \texttt{IfcRelAggregates} keine Kanten (0 IFC-Kanten). Alle 24 Kanten sind geometrisch. Das ist modellspezifisch, kein Algorithmusfehler.
+  \item \textbf{Elementgröße:} \texttt{MESH\_SIZE = 1{,}0\,m} ist für Produktionsberechnungen zu grob. Empfehlung: 0{,}2–0{,}5\,m.
+  \item \textbf{Homogenisierung:} Volumengewichtetes $E_\text{eff}$ — vereinfachend für Verbundsysteme. Bauteilweises $E$-Feld ist anzustreben.
+  \item \textbf{LLM-Auto-Call:} Prompt-Ausgabe implementiert, automatischer API-Call noch nicht.
+\end{enumerate}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Nächste Entwicklungsschritte}
+
+\begin{table}[H]
+\centering
+\caption{Roadmap}
+\begin{tabular}{cll}
+\toprule
+\textbf{Prio} & \textbf{Schritt} & \textbf{Ziel} \\
+\midrule
+1 & Elementgröße 0{,}3\,m, Konvergenztest & Ergebnisqualität \\
+2 & Bauteilweises Materialfeld & Heterogenes Modell \\
+3 & IFC4 mit befüllten Psets & Echte Material-BCs \\
+4 & LLM-Auto-Call via Claude API & Automatische Bewertung \\
+5 & JSON $\to$ CesiumJS-Einfärbung & Visualisierung in geobim.app \\
+6 & Gradient-basierte Formoptimierung & JAX-Differenzierbarkeit nutzen \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Abhängigkeiten}
+
+\begin{lstlisting}[language={}, numbers=none]
+ifcopenshell >= 0.8
+jax, jaxlib
+numpy
+networkx
+scikit-learn       # DBSCAN
+scipy              # ConvexHull
+gmsh
+meshio
+pyvista
+matplotlib
+\end{lstlisting}
+
+Conda-Umgebung: \texttt{jaxfem} (siehe \texttt{environment.yml} im JaxFEM-Root).
+
+% ═══════════════════════════════════════════════════════════════════════
+\section*{Referenzen}
+
+\begin{itemize}[noitemsep]
+  \item Poux, F. \& Lehtola, V. (2025). \textit{3D Scene Graphs for Spatial AI and LLMs}. Data Science Collective.
+  \item Schenk, O. \& Gärtner, K. (2004). PARDISO / UMFPACK direct solvers.
+  \item \texttt{IFC\_FEM\_3D.ipynb} — Vorgänger-Notebook (BBox-Netz, manuelle BCs)
+  \item JaxFEM: \url{https://github.com/tianjuxue/jax-fem}
+  \item IfcOpenShell: \url{https://ifcopenshell.org}
+\end{itemize}
+
+\vfill
+{\color{gray}\small
+  Tragwerkslabor · Hochschule Mainz · Fachbereich Technik · Fachrichtung Bauingenieurwesen\\
+  \texttt{philipp.schaefer@hs-mainz.de} · April 2026
+}
+
+\end{document}
