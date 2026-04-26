@@ -2,7 +2,7 @@ PWD /Users/philippschafer/Projekte/JaxFEM/docs
 INPUT /usr/local/texlive/2025/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf
 INPUT /usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT IFC_SceneGraph_FEM_Doku.tex
+INPUT /Users/philippschafer/Projekte/JaxFEM/docs/IFC_SceneGraph_FEM_Doku.tex
 OUTPUT IFC_SceneGraph_FEM_Doku.log
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/base/article.cls
