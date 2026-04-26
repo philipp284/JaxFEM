@@ -5,7 +5,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[ngerman]{babel}
 \usepackage{geometry}
-\geometry{left=25mm, right=25mm, top=30mm, bottom=30mm, headheight=15pt}
+\geometry{left=25mm, right=25mm, top=35mm, bottom=28mm, headheight=28pt}
 
 \usepackage{amsmath, amssymb}
 \usepackage{booktabs}
@@ -23,27 +23,42 @@
 \usepackage{microtype}
 \usepackage{lmodern}
 \usepackage{parskip}
+\usepackage{cite}
+\usepackage{soul}        % Sperrung (Letterspace)
+\usepackage{calc}
 
-% ── Farben ──────────────────────────────────────────────────────────────
-\definecolor{hsm-blue}{RGB}{0,83,156}
-\definecolor{hsm-green}{RGB}{0,153,100}
+% ── CD-Farben (achromat) ─────────────────────────────────────────────────
+\definecolor{hsm-black}{RGB}{0,0,0}
+\definecolor{hsm-darkgray}{RGB}{51,51,51}
+\definecolor{hsm-gray}{RGB}{120,120,120}
+\definecolor{hsm-lightgray}{RGB}{235,235,235}
 \definecolor{code-bg}{RGB}{245,245,245}
-\definecolor{code-kw}{RGB}{0,83,156}
-\definecolor{code-str}{RGB}{163,21,21}
-\definecolor{code-comment}{RGB}{100,130,100}
+\definecolor{code-kw}{RGB}{30,30,30}
+\definecolor{code-str}{RGB}{80,80,80}
+\definecolor{code-comment}{RGB}{130,130,130}
+
+% ── Logo-Pfad ────────────────────────────────────────────────────────────
+\newcommand{\hsmlogopath}{%
+  /Users/philippschafer/Library/CloudStorage/%
+  OneDrive-HochschuleMainz-UniversityofAppliedSciences/%
+  03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/CorporateDesign/%
+  Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/%
+  HSM_Logo_Dachmarke_RGB_pos.png%
+}
 
 % ── Code-Listings ────────────────────────────────────────────────────────
 \lstdefinestyle{python}{
   language=Python,
   backgroundcolor=\color{code-bg},
   basicstyle=\ttfamily\footnotesize,
-  keywordstyle=\color{code-kw}\bfseries,
+  keywordstyle=\color{hsm-black}\bfseries,
   stringstyle=\color{code-str},
   commentstyle=\color{code-comment}\itshape,
   numbers=left,
-  numberstyle=\tiny\color{gray},
+  numberstyle=\tiny\color{hsm-gray},
   numbersep=8pt,
   frame=single,
+  framerule=0.4pt,
   framesep=4pt,
   breaklines=true,
   breakatwhitespace=true,
@@ -51,59 +66,111 @@
   showstringspaces=false,
   captionpos=b,
   xleftmargin=12pt,
+  rulecolor=\color{hsm-gray},
 }
 \lstset{style=python}
 
 % ── Hyperlinks ───────────────────────────────────────────────────────────
 \hypersetup{
   colorlinks=true,
-  linkcolor=hsm-blue,
-  urlcolor=hsm-blue,
-  citecolor=hsm-blue,
+  linkcolor=hsm-black,
+  urlcolor=hsm-darkgray,
+  citecolor=hsm-darkgray,
   pdftitle={IFC → Scene Graph → JaxFEM},
   pdfauthor={Philipp Schäfer, Hochschule Mainz},
 }
 
-% ── Kopf-/Fußzeile ───────────────────────────────────────────────────────
+% ── Kopf-/Fußzeile (CD Briefbogen-Stil) ─────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\textcolor{hsm-blue}{\small IFC $\to$ Scene Graph $\to$ JaxFEM}}
-\fancyhead[R]{\textcolor{gray}{\small Tragwerkslabor · Hochschule Mainz}}
-\fancyfoot[C]{\thepage}
-\renewcommand{\headrulewidth}{0.4pt}
-
-% ── Überschriften ────────────────────────────────────────────────────────
-\titleformat{\section}{\large\bfseries\color{hsm-blue}}{}{0em}{\thesection\quad}
-\titleformat{\subsection}{\normalsize\bfseries\color{hsm-blue}}{}{0em}{\thesubsection\quad}
-
-% ── Titelseite ───────────────────────────────────────────────────────────
-\title{
-  \vspace{-1cm}
-  {\color{hsm-blue}\rule{\linewidth}{2pt}}\\[0.6cm]
-  {\LARGE\bfseries IFC $\to$ Scene Graph $\to$ JaxFEM}\\[0.3cm]
-  {\large Meilenstein-Dokumentation | Version 1.0}\\[0.2cm]
-  {\color{hsm-blue}\rule{\linewidth}{1pt}}\\[0.3cm]
-  {\normalsize\color{gray}
-    Automatische FEM-Berechnung aus IFC-Gebäudemodellen\\
-    via semantischen Scene Graphs und NetworkX DiGraph
-  }
+% Kopfzeile: links Dokumenttitel, rechts Logo
+\fancyhead[L]{%
+  \begin{minipage}[b]{0.55\textwidth}
+    \footnotesize\color{hsm-darkgray}
+    IFC $\to$ Scene Graph $\to$ JaxFEM\\
+    \textcolor{hsm-gray}{\small Tragwerkslabor · Hochschule Mainz}
+  \end{minipage}%
 }
-\author{
-  Philipp Schäfer\\
-  \small Tragwerkslabor · Hochschule Mainz\\
-  \small \texttt{philipp.schaefer@hs-mainz.de}
+\fancyhead[R]{%
+  \includegraphics[height=18pt]{\hsmlogopath}%
 }
-\date{\small April 2026}
+% Fußzeile: links "University of Applied Sciences", rechts Seitenzahl
+\fancyfoot[L]{\footnotesize\color{hsm-gray}University of Applied Sciences}
+\fancyfoot[R]{\footnotesize\color{hsm-gray}\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% ── Überschriften (CD: fett, Großbuchstaben, Trennlinie darunter) ─────────
+\titleformat{\section}
+  {\large\bfseries\MakeUppercase}
+  {}
+  {0em}
+  {\thesection\quad}
+  [\vspace{2pt}\titlerule]
+\titlespacing{\section}{0pt}{18pt}{8pt}
+
+\titleformat{\subsection}
+  {\normalsize\bfseries}
+  {}
+  {0em}
+  {\thesubsection\quad}
+\titlespacing{\subsection}{0pt}{12pt}{4pt}
+
+% ── Titelseite (Notiz/Protokoll-Stil) ───────────────────────────────────
+\newcommand{\hsmtitlepage}{%
+  \thispagestyle{empty}
+  % Kopfzeile der Titelseite
+  \noindent
+  \begin{minipage}[t]{0.55\textwidth}
+    \vspace{0pt}
+    \includegraphics[height=22pt]{\hsmlogopath}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[t]{0.42\textwidth}
+    \vspace{4pt}\raggedleft
+    \footnotesize\color{hsm-darkgray}
+    \textbf{Philipp Schäfer}\\
+    Tragwerkslabor\\
+    Fachbereich Technik $|$ Engineering\\[4pt]
+    Hochschule Mainz\\
+    University of Applied Sciences\\
+    Holzstraße 36, 55116 Mainz\\[4pt]
+    T~+49\,6131\,628-1366\\
+    \href{mailto:philipp.schaefer@hs-mainz.de}{philipp.schaefer@hs-mainz.de}
+  \end{minipage}
+
+  \vspace{8pt}
+  \noindent\rule{\linewidth}{0.6pt}
+
+  \vspace{18pt}
+  \noindent{\LARGE\bfseries\MakeUppercase{IFC $\to$ Scene Graph $\to$ JaxFEM}}
+
+  \vspace{4pt}
+  \noindent\rule{\linewidth}{0.4pt}
+
+  \vspace{6pt}
+  \noindent\textbf{Meilenstein-Dokumentation $|$ Version 1.0}
+
+  \vspace{4pt}
+  \noindent\color{hsm-gray}\small
+  Automatische FEM-Berechnung aus IFC-Gebäudemodellen\\
+  via semantischen Scene Graphs und NetworkX DiGraph
+
+  \vspace{4pt}
+  \noindent\normalcolor\small Mainz, April 2026
+
+  \vspace{16pt}
+}
 
 % ═══════════════════════════════════════════════════════════════════════
 \begin{document}
-\maketitle
-\thispagestyle{empty}
+
+\hsmtitlepage
 
 % ── Abstract ────────────────────────────────────────────────────────────
 \begin{abstract}
 \noindent
-Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollautomatische Kette von einem IFC-Gebäudemodell über einen semantischen Scene Graph bis zu einer FEM-Berechnung mit dem JAX-basierten Solver JaxFEM. Randbedingungen, Lastflächen und Materialkennwerte werden automatisch aus der Graph-Topologie und den IFC-Properties abgeleitet. Die Ergebnisse (Verschiebungen, Von-Mises-Spannungen) werden in den Scene Graph zurückgeschrieben und als strukturierter LLM-Prompt exportiert. Der erste vollständige Durchlauf mit 149 IFC-Bauteilen, 1\,958 Tet4-Elementen und 1\,917 Freiheitsgraden war erfolgreich.
+Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollautomatische Kette von einem IFC-Gebäudemodell~\cite{ifcopenshell} über einen semantischen Scene Graph bis zu einer FEM-Berechnung mit dem JAX-basierten Solver JaxFEM~\cite{jaxfem}. Randbedingungen, Lastflächen und Materialkennwerte werden automatisch aus der Graph-Topologie und den IFC-Properties abgeleitet. Die Ergebnisse (Verschiebungen, Von-Mises-Spannungen) werden in den Scene Graph zurückgeschrieben und als strukturierter LLM-Prompt exportiert. Der erste vollständige Durchlauf mit 149 IFC-Bauteilen, 1\,958 Tet4-Elementen und 1\,917 Freiheitsgraden war erfolgreich.
 \end{abstract}
 
 \tableofcontents
@@ -114,7 +181,9 @@ Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollau
 
 Die manuelle Vorbereitung von FEM-Modellen aus BIM-Daten ist in der Praxis ein erheblicher Aufwand: Geometrieimport, Randbedingungsdefinition, Netzerstellung und Materialzuweisung werden heute in RFEM, ANSYS oder ähnlichen Programmen weitgehend per Hand durchgeführt. Ziel dieser Pipeline ist die vollständige Automatisierung dieses Prozesses auf Basis von Open-Source-Werkzeugen.
 
-Zusätzlich zur reinen Geometrieverarbeitung wird die \textbf{semantische Struktur des Gebäudes} als gerichteter Graph (Scene Graph) modelliert. Dieser Graph dient als Wissensrepräsentation für automatische Schlussfolgerungen über Bauteilbeziehungen, Randbedingungen und Lastpfade — und ist direkt als Kontext für Large Language Models (LLMs) nutzbar.
+Die fehlende Interoperabilität zwischen BIM-Authoring-Tools und Analyse-Software ist ein seit Jahren bekanntes Forschungsproblem: Jin et al.~\cite{jin2019bim} identifizieren in ihrer bibliometrischen Übersichtsarbeit Interoperabilität, Semantik und die Lücke zwischen „As-designed"- und „As-built"-Leistung als zentrale Hemmnisse der BIM-gestützten Gebäudeanalyse. Aktuelle Systemati­sierungsarbeiten zeigen, dass die Kopplung von BIM und KI im AECO-Bereich an Dynamik gewinnt — Alves et al.~\cite{alves2025bim} kartieren 14 BIM- und 16 KI-Kompetenzen als Grundlage für smarte Bauprojekte —, der Übergang vom statischen Modell zu einem semantisch angereicherten, abfragbaren Wissensgraphen aber noch weitgehend offen ist~\cite{peng2024kg}. Wang et al.~\cite{wang2024kg} demonstrieren, dass ein wissens\-graphbasiertes Framework auf Basis geometrischer Relationen und HLK-Topologie in der Lage ist, Gebäudeenergie­modelle vollautomatisch aus BIM-Daten zu erzeugen; eine Folgestudie zeigt, dass derartige Pipelines auch bei unvollständigen BIM-Daten über einen hierarchischen Regel\-satz zur HLK-Topologie-Vervollständigung robust bleiben~\cite{wang2026hvac} — ein Konzept, das die vorliegende Pipeline auf den FEM-Bereich der Tragwerks\-analyse überträgt. Semantische Digital-Twin-Architekturen für Mauerwerksbrücken~\cite{chacon2026semantic} sowie IFC-gestützte Synthese annotierter Punktwolken für das Deep-Learning-basierte Semantiksegmentierungstraining~\cite{zhai2022bim} bestätigen den übergreifenden Trend zur semantischen Datenanreicherung im Bauwesen.
+
+Zusätzlich zur reinen Geometrieverarbeitung wird die \textbf{semantische Struktur des Gebäudes} als gerichteter Graph (Scene Graph) modelliert. Dieser Graph dient als Wissensrepräsentation für automatische Schlussfolgerungen über Bauteilbeziehungen, Randbedingungen und Lastpfade und ist direkt als Kontext für Large Language Models (LLMs) nutzbar~\cite{poux2025scene}. Den Eingang des Systems kann künftig eine vollautomatische Scan-to-BIM-Pipeline bilden: Chen \& Luo~\cite{chen2026scan} identifizieren in ihrer Dekadenschau (2014–2024) die Automatisierung der Geometrierekonstruktion aus Laserscans als zentrales offenes Forschungsfeld — ein direkter Anknüpfungspunkt für Prio~6 der Roadmap.
 
 \subsection{Einordnung in den Projektkontext}
 
@@ -133,7 +202,8 @@ Zusätzlich zur reinen Geometrieverarbeitung wird die \textbf{semantische Strukt
 \begin{lstlisting}[language={},style={},
   backgroundcolor=\color{code-bg},
   basicstyle=\ttfamily\footnotesize,
-  frame=single, numbers=none]
+  frame=single, numbers=none,
+  rulecolor=\color{hsm-gray}]
 IFC-Datei (IfcOpenShell)
    +-- Bauteil-Parsing (IfcWall, IfcColumn, IfcSlab, ...)
    |       +-- BBox + Schwerpunkt (Weltkoordinaten, m)
@@ -172,7 +242,7 @@ Alle Parameter sind in Schritt~1 des Notebooks zentral konfigurierbar:
 \midrule
 \texttt{USE\_DEMO\_MODEL} & \texttt{False} & Demo-IFC oder eigene Datei \\
 \texttt{MESH\_SIZE} & 1{,}0\,m & Tet4-Elementgröße \\
-\texttt{E\_DEFAULT} & 30\,000\,000\,kN/m² & Fallback E-Modul (C25/30) \\
+\texttt{E\_DEFAULT} & 30\,000 N/m² & Fallback E-Modul (C25/30) \\
 \texttt{NU\_DEFAULT} & 0{,}2 & Fallback Querdehnzahl \\
 \texttt{GAMMA\_BETON} & 25{,}0\,kN/m³ & Wichte Stahlbeton \\
 \texttt{Q\_NUTZLAST} & 5{,}0\,kN/m² & Charakteristische Nutzlast \\
@@ -258,11 +328,13 @@ und den Lamé-Parametern:
 
 \subsection{Effektives Material (Volumenhomogenisierung)}
 
-Das effektive Material des Gesamtsystems wird volumengewichtet berechnet:
+Das effektive Material des Gesamtsystems wird volumengewichtet berechnet (Voigt-Schranke / iso-Dehnungsannahme):
 \begin{equation}
   E_\text{eff} = \frac{\sum_i E_i \cdot V_i}{\sum_i V_i}, \qquad
   \nu_\text{eff} = \frac{\sum_i \nu_i \cdot V_i}{\sum_i V_i}
 \end{equation}
+
+Diese Formulierung entspricht der oberen Voigt-Schranke der Homogenisierungstheorie und ist für grobe Netzauflösungen mit überwiegend gleichartigen Materialien eine konservative Näherung. Für heterogene Verbundsysteme (z.\,B. Stahl-Beton-Verbund) ist ein bauteilweises Materialfeld anzustreben (vgl.\ Abschnitt~\ref{sec:limits}).
 
 \subsection{Randwertproblem}
 
@@ -394,6 +466,7 @@ Ergebnisrückfluss & Keine & \textbf{FEM $\to$ Graphknoten} \\
 
 % ═══════════════════════════════════════════════════════════════════════
 \section{Bekannte Einschränkungen (Version 1.0)}
+\label{sec:limits}
 
 \begin{enumerate}[noitemsep]
   \item \textbf{IFC-Kanten:} Im Duplex-Beispiel liefert \texttt{IfcRelAggregates} keine Kanten (0 IFC-Kanten). Alle 24 Kanten sind geometrisch. Das ist modellspezifisch, kein Algorithmusfehler.
@@ -417,7 +490,8 @@ Ergebnisrückfluss & Keine & \textbf{FEM $\to$ Graphknoten} \\
 3 & IFC4 mit befüllten Psets & Echte Material-BCs \\
 4 & LLM-Auto-Call via Claude API & Automatische Bewertung \\
 5 & JSON $\to$ CesiumJS-Einfärbung & Visualisierung in geobim.app \\
-6 & Gradient-basierte Formoptimierung & JAX-Differenzierbarkeit nutzen \\
+6 & Scan-to-BIM-Eingang (Punktwolke $\to$ IFC) & Direkteinspeisung aus Bestandserfassung~\cite{chen2026scan, mahmoud2026scan} \\
+7 & Gradient-basierte Formoptimierung & JAX-Differenzierbarkeit nutzen \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -442,19 +516,85 @@ Conda-Umgebung: \texttt{jaxfem} (siehe \texttt{environment.yml} im JaxFEM-Root).
 
 % ═══════════════════════════════════════════════════════════════════════
 \section*{Referenzen}
+\addcontentsline{toc}{section}{Referenzen}
 
-\begin{itemize}[noitemsep]
-  \item Poux, F. \& Lehtola, V. (2025). \textit{3D Scene Graphs for Spatial AI and LLMs}. Data Science Collective.
-  \item Schenk, O. \& Gärtner, K. (2004). PARDISO / UMFPACK direct solvers.
-  \item \texttt{IFC\_FEM\_3D.ipynb} — Vorgänger-Notebook (BBox-Netz, manuelle BCs)
-  \item JaxFEM: \url{https://github.com/tianjuxue/jax-fem}
-  \item IfcOpenShell: \url{https://ifcopenshell.org}
-\end{itemize}
+\begin{thebibliography}{9}
+
+\bibitem{poux2025scene}
+Poux, F. \& Lehtola, V. (2025).
+\textit{3D Scene Graphs for Spatial AI and LLMs}.
+Data Science Collective.
+
+\bibitem{chacon2026semantic}
+Chacón, R., Ramonell, C., Ventosa San Martino, M. \& Posada, H. (2026).
+Semantic digital twins for masonry bridges: Structuring geometrical, material and assessment field data.
+\textit{Engineering Structures}, 357, 122503.
+\url{https://doi.org/10.1016/j.engstruct.2026.122503}
+
+\bibitem{zhai2022bim}
+Zhai, R., Zou, J., He, Y. \& Meng, L. (2022).
+BIM-driven data augmentation method for semantic segmentation in superpoint-based deep learning network.
+\textit{Automation in Construction}, 140, 104373.
+\url{https://doi.org/10.1016/j.autcon.2022.104373}
+
+\bibitem{jin2019bim}
+Jin, R., Zhong, B., Ma, L., Hashemi, A. \& Ding, L. (2019).
+Integrating BIM with building performance analysis in project life-cycle.
+\textit{Automation in Construction}, 106, 102861.
+\url{https://doi.org/10.1016/j.autcon.2019.102861}
+
+\bibitem{alves2025bim}
+Alves, J.~L., Palha, R.~P. \& Almeida~Filho, A.~T. (2025).
+Towards an integrative framework for BIM and artificial intelligence capabilities in smart architecture, engineering, construction, and operations projects.
+\textit{Automation in Construction}, 174, 106168.
+\url{https://doi.org/10.1016/j.autcon.2025.106168}
+
+\bibitem{peng2024kg}
+Peng, Y., Au-Yong, C.~P. \& Myeda, N.~E. (2024).
+Knowledge graph of building information modelling (BIM) for facilities management (FM).
+\textit{Automation in Construction}, 165, 105492.
+\url{https://doi.org/10.1016/j.autcon.2024.105492}
+
+\bibitem{wang2024kg}
+Wang, M., Lilis, G.~N., Mavrokapnidis, D., Katsigarakis, K., Korolija, I. \& Rovas, D. (2024).
+A knowledge graph-based framework to automate the generation of building energy models using geometric relation checking and HVAC topology establishment.
+\textit{Energy and Buildings}, 325, 115035.
+\url{https://doi.org/10.1016/j.enbuild.2024.115035}
+
+\bibitem{wang2026hvac}
+Wang, M., Lilis, G.~N., Mavrokapnidis, D., Katsigarakis, K., Korolija, I. \& Rovas, D. (2026).
+Automating HVAC enrichment in building energy models from imperfect BIM data through topology completeness validation.
+\textit{Applied Energy}, 404, 127171.
+\url{https://doi.org/10.1016/j.apenergy.2025.127171}
+
+\bibitem{chen2026scan}
+Chen, Y. \& Luo, X. (2026).
+Indoor scan-to-BIM workflows: Progress, challenges, and future directions (2014--2024).
+\textit{Automation in Construction}, 181, 106578.
+\url{https://doi.org/10.1016/j.autcon.2025.106578}
+
+\bibitem{mahmoud2026scan}
+Mahmoud, M., Li, Y., Adham, M., Mansour, A. \& Chen, W. (2026).
+Indoor 3D point cloud reconstruction for scan-to-BIM automation.
+\textit{Automation in Construction}, 184, 106853.
+\url{https://doi.org/10.1016/j.autcon.2026.106853}
+
+\bibitem{jaxfem}
+Xue, T. et al.\ JaxFEM: A differentiable finite element solver in JAX.
+\url{https://github.com/tianjuxue/jax-fem}
+
+\bibitem{ifcopenshell}
+IfcOpenShell contributors.
+IfcOpenShell — Open Source IFC Library.
+\url{https://ifcopenshell.org}
+
+\end{thebibliography}
 
 \vfill
-{\color{gray}\small
-  Tragwerkslabor · Hochschule Mainz · Fachbereich Technik · Fachrichtung Bauingenieurwesen\\
-  \texttt{philipp.schaefer@hs-mainz.de} · April 2026
+\noindent\rule{\linewidth}{0.4pt}
+\noindent{\footnotesize\color{hsm-gray}
+  Tragwerkslabor · Fachbereich Technik · Fachrichtung Bauingenieurwesen · Hochschule Mainz\\
+  University of Applied Sciences · \texttt{philipp.schaefer@hs-mainz.de} · April 2026
 }
 
 \end{document}
