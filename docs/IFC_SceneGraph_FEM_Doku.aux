@@ -9,57 +9,101 @@
 \citation{jaxfem}
 \babel@aux{ngerman}{}
 \citation{jin2019bim}
-\citation{alves2025bim}
-\citation{peng2024kg}
+\citation{chen2026scan,mahmoud2026scan}
+\citation{poux2025scene}
 \citation{wang2024kg}
 \citation{wang2026hvac}
-\citation{chacon2026semantic}
-\citation{zhai2022bim}
-\citation{poux2025scene}
-\citation{chen2026scan}
+\citation{alves2025bim}
+\citation{peng2024kg}
+\citation{jaxfem}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Motivation und Einordnung}{3}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Einordnung in den Projektkontext}{3}{subsection.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Pipeline-Architektur}{4}{section.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Vollständige Pipeline \texttt  {IFC\_SceneGraph\_FEM.ipynb}}}{4}{figure.caption.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Konfigurationsparameter}{4}{section.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Konfigurationsparameter}}{4}{table.caption.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Scene Graph — Formale Beschreibung}{4}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Graphstruktur}{4}{subsection.4.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Kanten-Typen im Scene Graph}}{5}{table.caption.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Automatische Ableitung von Randbedingungen}{5}{subsection.4.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Graph-Topologie → FEM-Randbedingungen}}{5}{table.caption.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}FEM-Formulierung}{5}{section.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Konstitutives Gesetz — Lineare 3D-Elastizität}{5}{subsection.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Effektives Material (Volumenhomogenisierung)}{5}{subsection.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Randwertproblem}{6}{subsection.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Von-Mises-Vergleichsspannung}{6}{subsection.5.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}Diskretisierung — Tet4-Element}{6}{subsection.5.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}Ergebnisse — Erster Meilenstein}{6}{section.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Modell}{6}{subsection.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Modell-Kenngrößen}}{6}{table.caption.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}FEM-Ergebnisse}{6}{subsection.6.2}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces FEM-Ergebnisse (Meilenstein 1)}}{6}{table.caption.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {7}LLM-Integration}{7}{section.7}\protected@file@percent }
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces LLM-Prompt-Schema (graph\_to\_llm\_prompt)}}{7}{lstlisting.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {8}Vergleich mit dem Vorgänger-Notebook}{7}{section.8}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces IFC\_FEM\_3D.ipynb vs. IFC\_SceneGraph\_FEM.ipynb}}{7}{table.caption.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {9}Bekannte Einschränkungen (Version 1.0)}{7}{section.9}\protected@file@percent }
-\newlabel{sec:limits}{{9}{7}{Bekannte Einschränkungen (Version 1.0)}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Ausgangsproblem: die BIM-to-FEM-Lücke}{3}{subsection.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Wissensrepräsentation als Schlüssel}{3}{subsection.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Differenzierbarkeit und JAX}{3}{subsection.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Einordnung in die Projekthistorie}{3}{subsection.1.4}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Notebook-Generationen des JaxFEM-Projekts}}{3}{table.caption.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2}Gesamtarchitektur der Pipeline}{4}{section.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Vollständige Pipeline \texttt  {IFC\_SceneGraph\_FEM.ipynb} mit Schrittverweisen}}{4}{figure.caption.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Konfigurationsparameter (Schritt 1)}{4}{section.3}\protected@file@percent }
+\newlabel{sec:config}{{3}{4}{Konfigurationsparameter (Schritt 1)}{section.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Zentrale Konfigurationsparameter (Schritt 1)}}{5}{table.caption.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1}{\ignorespaces IFC-Klassen-Mapping}}{5}{lstlisting.1}\protected@file@percent }
+\citation{poux2025scene}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Phase 1: Modellaufbau}{6}{section.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}IFC laden und Demo-Modell (Schritt 2)}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Demo-Modell}{6}{subsubsection.4.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Eigene IFC-Datei und Z-Normalisierung}{6}{subsubsection.4.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Bauteil-Parsing und Punktwolkenerzeugung (Schritt 3)}{6}{subsection.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}IFC-Relationship-Analyse (Schritt 5)}{6}{subsection.4.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Extrahierte IFC-Beziehungstypen}}{6}{table.caption.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Semantisches DBSCAN-Clustering (Schritt 6)}{7}{subsection.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Clustering-Algorithmus}{7}{subsubsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}IFC-BBox-Snap}{7}{subsubsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}Feature-Extraktion (Schritt 7)}{7}{subsection.4.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces Extrahierte Objektfeatures}}{7}{table.caption.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Räumliche Beziehungsanalyse (Schritt 8)}{7}{subsection.4.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}Scene Graph — Formale Beschreibung (Schritt 9)}{7}{section.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Graphstruktur}{7}{subsection.5.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Kanten-Typen im Scene Graph}}{8}{table.caption.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}Graph-Metriken und Analysefunktionen (Schritt 10--11)}{8}{subsection.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Automatische Ableitung der FEM-Randbedingungen}{8}{subsection.5.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces Graphtopologie $\to $ FEM-Randbedingungen}}{8}{table.caption.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Phase 2: FEM-Vorbereitung}{9}{section.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Material-Mapping (Schritt 12)}{9}{subsection.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}GMSH Tet4-Netz aus IFC-Geometrie (Schritt 13)}{9}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.1}Strategie: STL-Merge}{9}{subsubsection.6.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.2}Fallback-Strategie}{9}{subsubsection.6.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.2.3}Netzausgabe}{9}{subsubsection.6.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Randbedingungen (Schritt 14)}{10}{subsection.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.3.1}Kontaktzonenbasierte BCs}{10}{subsubsection.6.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {6.3.2}JAX-kompatible Location-Funktionen}{10}{subsubsection.6.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7}FEM-Formulierung (Schritt 15--16)}{10}{section.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}Konstitutives Gesetz — Lineare 3D-Elastizität}{10}{subsection.7.1}\protected@file@percent }
+\newlabel{eq:hooke}{{3}{10}{Konstitutives Gesetz — Lineare 3D-Elastizität}{equation.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Schwache Form und FEM-Diskretisierung}{10}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Tet4-Element}{11}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.4}JaxFEM-Problemklasse}{11}{subsection.7.4}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2}{\ignorespaces JaxFEM-Problemklasse IFC\_SG\_FEM}}{11}{lstlisting.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.5}Von-Mises-Vergleichsspannung und Spannungsberechnung (Schritt 16)}{11}{subsection.7.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Ergebnisse — Erster Meilenstein (Schritt 17--18)}{12}{section.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Modell-Kenngrößen}{12}{subsection.8.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Modell- und Netz-Kenngrößen}}{12}{table.caption.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}FEM-Ergebnisse}{12}{subsection.8.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {8}{\ignorespaces FEM-Ergebnisse (Meilenstein 1, \texttt  {MESH\_SIZE} = 1{,}0\,m)}}{12}{table.caption.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Plausibilitätsbewertung}{12}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Ergebnisrückfluss in den Scene Graph (Schritt 18)}{13}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}LLM-Integration (Schritt 19)}{13}{section.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Prompt-Generierung}{13}{subsection.9.1}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}{\ignorespaces Schema des LLM-Prompts (graph\_to\_llm\_prompt)}}{13}{lstlisting.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}Anwendungsbeispiele}{13}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}API-Anbindung}{13}{subsection.9.3}\protected@file@percent }
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {4}{\ignorespaces Geplante Claude-API-Anbindung (Prio 4)}}{13}{lstlisting.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Vergleich: Vorgänger vs.\ neues Notebook}{14}{section.10}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9}{\ignorespaces IFC\_FEM\_3D.ipynb (Generation 1) vs.\ IFC\_SceneGraph\_FEM.ipynb (Generation 2)}}{14}{table.caption.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11}Bekannte Einschränkungen (Version 1.0)}{14}{section.11}\protected@file@percent }
+\newlabel{sec:limits}{{11}{14}{Bekannte Einschränkungen (Version 1.0)}{section.11}{}}
 \citation{chen2026scan,mahmoud2026scan}
+\@writefile{toc}{\contentsline {section}{\numberline {12}Roadmap und Nächste Entwicklungsschritte}{15}{section.12}\protected@file@percent }
+\newlabel{sec:roadmap}{{12}{15}{Roadmap und Nächste Entwicklungsschritte}{section.12}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {10}{\ignorespaces Priorisierte Entwicklungsschritte}}{15}{table.caption.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13}Softwareabhängigkeiten und Umgebung}{15}{section.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.1}Python-Pakete}{15}{subsection.13.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.2}Conda-Umgebung}{16}{subsection.13.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {13.3}Ausgabedateien}{16}{subsection.13.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11}{\ignorespaces Erzeugte Ausgabedateien}}{16}{table.caption.12}\protected@file@percent }
 \bibcite{poux2025scene}{1}
 \bibcite{chacon2026semantic}{2}
 \bibcite{zhai2022bim}{3}
 \bibcite{jin2019bim}{4}
 \bibcite{alves2025bim}{5}
 \bibcite{peng2024kg}{6}
-\@writefile{toc}{\contentsline {section}{\numberline {10}Nächste Entwicklungsschritte}{8}{section.10}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {7}{\ignorespaces Roadmap}}{8}{table.caption.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {11}Abhängigkeiten}{8}{section.11}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{Referenzen}{8}{lstnumber.-2.10}\protected@file@percent }
 \bibcite{wang2024kg}{7}
+\@writefile{toc}{\contentsline {section}{\numberline {14}Zusammenfassung aller Notebook-Schritte}{17}{section.14}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {12}{\ignorespaces Vollständige Schritt-Übersicht (IFC\_SceneGraph\_FEM.ipynb)}}{17}{table.caption.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{Referenzen}{17}{table.caption.13}\protected@file@percent }
 \bibcite{wang2026hvac}{8}
 \bibcite{chen2026scan}{9}
 \bibcite{mahmoud2026scan}{10}
 \bibcite{jaxfem}{11}
 \bibcite{ifcopenshell}{12}
-\gdef \@abspage@last{9}
+\gdef \@abspage@last{18}

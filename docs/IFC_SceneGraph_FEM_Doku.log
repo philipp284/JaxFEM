@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.28)  26 APR 2026 03:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.8.28)  26 APR 2026 03:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -597,11 +597,343 @@ LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count329
 \calc@Cskip=\skip82
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcolorbox.sty
+Package: tcolorbox 2024/10/22 version 6.4.1 text color boxes
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/frontendlayer/tikz.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgf.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfrcs.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-common.te
+x
+\pgfutil@everybye=\toks42
+\pgfutil@tempdima=\dimen268
+\pgfutil@tempdimb=\dimen269
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfutil-latex.def
+\pgfutil@abb=\box68
+) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfrcs.code.tex
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/pgf.revision.tex)
+Package: pgfrcs 2023-01-15 v3.1.10 (3.1.10)
+))
+Package: pgf 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/basiclayer/pgfcore.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/systemlayer/pgfsys.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys.code.tex
+Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex
+\pgfkeys@pathtoks=\toks43
+\pgfkeys@temptoks=\toks44
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeyslibraryfil
+tered.code.tex
+\pgfkeys@tmptoks=\toks45
+))
+\pgf@x=\dimen270
+\pgf@y=\dimen271
+\pgf@xa=\dimen272
+\pgf@ya=\dimen273
+\pgf@xb=\dimen274
+\pgf@yb=\dimen275
+\pgf@xc=\dimen276
+\pgf@yc=\dimen277
+\pgf@xd=\dimen278
+\pgf@yd=\dimen279
+\w@pgf@writea=\write3
+\r@pgf@reada=\read3
+\c@pgf@counta=\count330
+\c@pgf@countb=\count331
+\c@pgf@countc=\count332
+\c@pgf@countd=\count333
+\t@pgf@toka=\toks46
+\t@pgf@tokb=\toks47
+\t@pgf@tokc=\toks48
+\pgf@sys@id@count=\count334
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgf.cfg
+File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
+)
+Driver file for pgf: pgfsys-pdftex.def
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-pdftex.d
+ef
+File: pgfsys-pdftex.def 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsys-common-p
+df.def
+File: pgfsys-common-pdf.def 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsyssoftpath.
+code.tex
+File: pgfsyssoftpath.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfsyssoftpath@smallbuffer@items=\count335
+\pgfsyssoftpath@bigbuffer@items=\count336
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/systemlayer/pgfsysprotocol.
+code.tex
+File: pgfsysprotocol.code.tex 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcore.code.tex
+Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathutil.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathparser.code.tex
+\pgfmath@dimen=\dimen280
+\pgfmath@count=\count337
+\pgfmath@box=\box69
+\pgfmath@toks=\toks49
+\pgfmath@stack@operand=\toks50
+\pgfmath@stack@operation=\toks51
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.code.
+tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.basic
+.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.trigo
+nometric.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.rando
+m.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.compa
+rison.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.base.
+code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.round
+.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.misc.
+code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfunctions.integ
+erarithmetics.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathcalc.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmathfloat.code.tex
+\c@pgfmathroundto@lastzeros=\count338
+)) (/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfint.code.tex)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepoints.co
+de.tex
+File: pgfcorepoints.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@picminx=\dimen281
+\pgf@picmaxx=\dimen282
+\pgf@picminy=\dimen283
+\pgf@picmaxy=\dimen284
+\pgf@pathminx=\dimen285
+\pgf@pathmaxx=\dimen286
+\pgf@pathminy=\dimen287
+\pgf@pathmaxy=\dimen288
+\pgf@xx=\dimen289
+\pgf@xy=\dimen290
+\pgf@yx=\dimen291
+\pgf@yy=\dimen292
+\pgf@zx=\dimen293
+\pgf@zy=\dimen294
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathconst
+ruct.code.tex
+File: pgfcorepathconstruct.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@path@lastx=\dimen295
+\pgf@path@lasty=\dimen296
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathusage
+.code.tex
+File: pgfcorepathusage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@shorten@end@additional=\dimen297
+\pgf@shorten@start@additional=\dimen298
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorescopes.co
+de.tex
+File: pgfcorescopes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfpic=\box70
+\pgf@hbox=\box71
+\pgf@layerbox@main=\box72
+\pgf@picture@serial@count=\count339
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoregraphicst
+ate.code.tex
+File: pgfcoregraphicstate.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgflinewidth=\dimen299
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretransform
+ations.code.tex
+File: pgfcoretransformations.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@pt@x=\dimen300
+\pgf@pt@y=\dimen301
+\pgf@pt@temp=\dimen302
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorequick.cod
+e.tex
+File: pgfcorequick.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreobjects.c
+ode.tex
+File: pgfcoreobjects.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepathproce
+ssing.code.tex
+File: pgfcorepathprocessing.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorearrows.co
+de.tex
+File: pgfcorearrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfarrowsep=\dimen303
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreshade.cod
+e.tex
+File: pgfcoreshade.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@max=\dimen304
+\pgf@sys@shading@range@num=\count340
+\pgf@shadingcount=\count341
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreimage.cod
+e.tex
+File: pgfcoreimage.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoreexternal.
+code.tex
+File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfexternal@startupbox=\box73
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorelayers.co
+de.tex
+File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcoretranspare
+ncy.code.tex
+File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorepatterns.
+code.tex
+File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/basiclayer/pgfcorerdf.code.
+tex
+File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleshapes.cod
+e.tex
+File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfnodeparttextbox=\box74
+)
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmoduleplot.code.
+tex
+File: pgfmoduleplot.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-0-65.sty
+Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
+\pgf@nodesepstart=\dimen305
+\pgf@nodesepend=\dimen306
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/compatibility/pgfcomp-version
+-1-18.sty
+Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
+))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgffor.sty
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/utilities/pgfkeys.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgfkeys.code.tex)
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/pgf/math/pgfmath.sty
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/math/pgfmath.code.tex))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/utilities/pgffor.code.tex
+Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
+\pgffor@iter=\dimen307
+\pgffor@skip=\dimen308
+\pgffor@stack=\toks52
+\pgffor@toks=\toks53
+))
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/tikz.cod
+e.tex
+Package: tikz 2023-01-15 v3.1.10 (3.1.10)
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothan
+dlers.code.tex
+File: pgflibraryplothandlers.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgf@plot@mark@count=\count342
+\pgfplotmarksize=\dimen309
+)
+\tikz@lastx=\dimen310
+\tikz@lasty=\dimen311
+\tikz@lastxsaved=\dimen312
+\tikz@lastysaved=\dimen313
+\tikz@lastmovetox=\dimen314
+\tikz@lastmovetoy=\dimen315
+\tikzleveldistance=\dimen316
+\tikzsiblingdistance=\dimen317
+\tikz@figbox=\box75
+\tikz@figbox@bg=\box76
+\tikz@tempbox=\box77
+\tikz@tempbox@bg=\box78
+\tikztreelevel=\count343
+\tikznumberofchildren=\count344
+\tikznumberofcurrentchild=\count345
+\tikz@fig@count=\count346
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.cod
+e.tex
+File: pgfmodulematrix.code.tex 2023-01-15 v3.1.10 (3.1.10)
+\pgfmatrixcurrentrow=\count347
+\pgfmatrixcurrentcolumn=\count348
+\pgf@matrix@numberofcolumns=\count349
+)
+\tikz@expandcount=\count350
+
+(/usr/local/texlive/2025/texmf-dist/tex/generic/pgf/frontendlayer/tikz/librarie
+s/tikzlibrarytopaths.code.tex
+File: tikzlibrarytopaths.code.tex 2023-01-15 v3.1.10 (3.1.10)
+)))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2024-01-22 v1.5x LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks54
+\verbatim@line=\toks55
+\verbatim@in@stream=\read4
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/environ/environ.sty
+Package: environ 2014/05/04 v0.3 A new way to define environments
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+))
+\tcb@titlebox=\box79
+\tcb@upperbox=\box80
+\tcb@lowerbox=\box81
+\tcb@phantombox=\box82
+\c@tcbbreakpart=\count351
+\c@tcblayer=\count352
+\c@tcolorbox@number=\count353
+\l__tcobox_tmpa_box=\box83
+\l__tcobox_tmpa_dim=\dimen318
+\tcb@temp=\box84
+\tcb@temp=\box85
+\tcb@temp=\box86
+\tcb@temp=\box87
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbskins.code.tex
+Library (tcolorbox): 'tcbskins.code.tex' version '6.4.1'
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzfill.image.sty
+Package: tikzfill.image 2023/08/08 v1.0.1 Image filling library for TikZ
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzfill-common.sty
+Package: tikzfill-common 2023/08/08 v1.0.1 Auxiliary code for tikzfill
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tikzfill/tikzlibraryfill.image.co
+de.tex
+File: tikzlibraryfill.image.code.tex 2023/08/08 v1.0.1 Image filling library
+\l__tikzfill_img_box=\box88
+))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbskinsjigsaw.code.tex
+Library (tcolorbox): 'tcbskinsjigsaw.code.tex' version '6.4.1'
+))
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tcolorbox/tcbbreakable.code.tex
+Library (tcolorbox): 'tcbbreakable.code.tex' version '6.4.1'
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdfcol/pdfcol.sty
+Package: pdfcol 2022-09-21 v1.7 Handle new color stacks for pdfTeX (HO)
+)
+Package pdfcol Info: New color stack `tcb@breakable' = 1 on input line 23.
+\tcb@testbox=\box89
+\tcb@totalupperbox=\box90
+\tcb@totallowerbox=\box91
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 81.
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 16
+Package hyperref Info: Option `colorlinks' set `true' on input line 107.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 19
 6.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
@@ -609,30 +941,30 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count330
-\l__pdf_internal_box=\box68
+\l__color_backend_stack_int=\count354
+\l__pdf_internal_box=\box92
 )
 (./IFC_SceneGraph_FEM_Doku.aux)
 \openout1 = `IFC_SceneGraph_FEM_Doku.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 166.
-LaTeX Font Info:    ... okay on input line 166.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 196.
+LaTeX Font Info:    ... okay on input line 196.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -670,17 +1002,17 @@ LaTeX Font Info:    ... okay on input line 166.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count331
-\scratchdimen=\dimen268
-\scratchbox=\box69
-\nofMPsegments=\count332
-\nofMParguments=\count333
-\everyMPshowfont=\toks42
-\MPscratchCnt=\count334
-\MPscratchDim=\dimen269
-\MPnumerator=\count335
-\makeMPintoPDFobject=\count336
-\everyMPtoPDFconversion=\toks43
+\scratchcounter=\count355
+\scratchdimen=\dimen319
+\scratchbox=\box93
+\nofMPsegments=\count356
+\nofMParguments=\count357
+\everyMPshowfont=\toks56
+\MPscratchCnt=\count358
+\MPscratchDim=\dimen320
+\MPnumerator=\count359
+\makeMPintoPDFobject=\count360
+\everyMPtoPDFconversion=\toks57
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -690,30 +1022,30 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count337
-Package hyperref Info: Link coloring ON on input line 166.
+\c@lstlisting=\count361
+Package hyperref Info: Link coloring ON on input line 196.
 
 (./IFC_SceneGraph_FEM_Doku.out) (./IFC_SceneGraph_FEM_Doku.out)
-\@outlinefile=\write3
-\openout3 = `IFC_SceneGraph_FEM_Doku.out'.
+\@outlinefile=\write4
+\openout4 = `IFC_SceneGraph_FEM_Doku.out'.
 
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Info: Redefining \microtypecontext on input line 166.
-Package microtype Info: Applying patch `item' on input line 166.
-Package microtype Info: Applying patch `toc' on input line 166.
-Package microtype Info: Applying patch `eqnum' on input line 166.
-Package microtype Info: Applying patch `footnote' on input line 166.
-Package microtype Info: Applying patch `verbatim' on input line 166.
-LaTeX Info: Redefining \microtypesetup on input line 166.
+LaTeX Info: Redefining \microtypecontext on input line 196.
+Package microtype Info: Applying patch `item' on input line 196.
+Package microtype Info: Applying patch `toc' on input line 196.
+Package microtype Info: Applying patch `eqnum' on input line 196.
+Package microtype Info: Applying patch `footnote' on input line 196.
+Package microtype Info: Applying patch `verbatim' on input line 196.
+LaTeX Info: Redefining \microtypesetup on input line 196.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 166.
+LaTeX Info: Redefining \showhyphens on input line 196.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -725,7 +1057,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 </Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-University
 ofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/CorporateDe
 sign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo_Dac
-hmarke_RGB_pos.png, id=92, 284.5029pt x 78.2925pt>
+hmarke_RGB_pos.png, id=228, 284.5029pt x 78.2925pt>
 File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
 rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
 ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
@@ -737,39 +1069,39 @@ _Dachmarke_RGB_pos.png>
 Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
 chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
 _11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 168.
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 198.
 (pdftex.def)             Requested size: 181.6992pt x 50.0pt.
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-68.
+98.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-68.
+98.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-168.
+198.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-168.
+198.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 168.
+(Font)              <9> on input line 198.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 168.
+(Font)              <6> on input line 198.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 168.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 168
+(Font)              <5> on input line 198.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 198
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -778,7 +1110,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 168
+LaTeX Font Info:    Trying to load font information for U+msb on input line 198
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -788,17 +1120,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <17.28> on input line 168.
+(Font)              <17.28> on input line 198.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 168.
+(Font)              <12> on input line 198.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 168.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 168.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 168.
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-73.
+(Font)              <10> on input line 198.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 2
+03.
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
@@ -821,13 +1149,13 @@ al/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/202
 loudStorage/OneDrive-HochschuleMainz-UniversityofAppliedSciences/03_Tragwerksla
 bor/06_Projekte/2026_03_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz
 _NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png>])
-\tf@toc=\write4
-\openout4 = `IFC_SceneGraph_FEM_Doku.toc'.
+\tf@toc=\write5
+\openout5 = `IFC_SceneGraph_FEM_Doku.toc'.
 
 
 
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-77.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+07.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -842,9 +1170,14 @@ _Dachmarke_RGB_pos.png>
 Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
 chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
 _11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 177.
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 207.
 (pdftex.def)             Requested size: 65.40823pt x 18.0pt.
  [2{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10.95> on input line 233.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 233.
+
 
 File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
 rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
@@ -857,82 +1190,21 @@ _Dachmarke_RGB_pos.png>
 Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
 chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
 _11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 228.
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 255.
 (pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[3]
-
-File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
-rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
-ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
-o_Dachmarke_RGB_pos.png Graphic file (type png)
-<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
-sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
-teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
-_Dachmarke_RGB_pos.png>
-Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
-chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
-_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 287.
-(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[4{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
-cal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/20
-25/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
-
-File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
-rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
-ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
-o_Dachmarke_RGB_pos.png Graphic file (type png)
-<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
-sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
-teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
-_Dachmarke_RGB_pos.png>
-Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
-chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
-_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 346.
-(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[5]
-
-File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
-rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
-ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
-o_Dachmarke_RGB_pos.png Graphic file (type png)
-<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
-sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
-teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
-_Dachmarke_RGB_pos.png>
-Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
-chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
-_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 415.
-(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[6]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
-nput line 421.
-
-Overfull \hbox (6.50185pt too wide) in paragraph at lines 473--474
-[]\T1/lmr/bx/n/10 (-20) Elementgröÿe: \T1/lmtt/m/n/10 MESH_SIZE = 1,0m \T1/lmr/
-m/n/10 (-20) ist für Pro-duk-ti-ons-be-rech-nun-gen zu grob. Emp-feh-lung: 0,2^
-^U0,5m. 
+[3{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/lo
+cal/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}]
+Underfull \hbox (badness 10000) in paragraph at lines 317--318
+[]|\T1/lmr/m/n/10.95 (+20) Nachbarschaftsradius für DBS-CAN
  []
 
 
+Underfull \hbox (badness 4072) in paragraph at lines 317--318
+\T1/lmr/m/n/10.95 (+20) (Clustering-Empfindlichkeit). Zu klein:
+ []
 
-File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
-rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
-ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
-o_Dachmarke_RGB_pos.png Graphic file (type png)
-<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
-sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
-teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
-_Dachmarke_RGB_pos.png>
-Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
-chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
-_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 476.
-(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[7]
-Overfull \hbox (39.69101pt too wide) in paragraph at lines 484--497
+
+Overfull \hbox (3.99086pt too wide) in paragraph at lines 306--323
  [][] 
  []
 
@@ -949,9 +1221,12 @@ _Dachmarke_RGB_pos.png>
 Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
 chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
 _11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 558.
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 324.
 (pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[8]
+[4]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
+nput line 327.
+
 
 File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
 rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
@@ -964,25 +1239,332 @@ _Dachmarke_RGB_pos.png>
 Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
 chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
 _11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
-/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 600.
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 349.
 (pdftex.def)             Requested size: 65.40823pt x 18.0pt.
-[9] (./IFC_SceneGraph_FEM_Doku.aux)
+[5]
+Overfull \hbox (25.83588pt too wide) in paragraph at lines 360--361
+[]\T1/lmr/bx/n/10 (-20) Bounding Box \T1/lmr/m/n/10 (-20) aus den Mesh-Vertices
+ via \T1/lmtt/m/n/10 ifcopenshell.geom.create_shape() \T1/lmr/m/n/10 (-20) mit 
+\T1/lmtt/m/n/10 USE_WORLD_COORDS
+ []
+
+
+Overfull \hbox (123.99738pt too wide) in paragraph at lines 374--383
+ [][] 
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 392.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[6]
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 443.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[7]
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
+[]|\T1/lmtt/m/n/10.95 IfcRelContainedInSpatialStructure\T1/lmr/m/n/10.95 (+20) 
+:
+ []
+
+
+Underfull \hbox (badness 8000) in paragraph at lines 489--489
+[]|\T1/lmtt/m/n/10.95 slab \T1/lmr/m/n/10.95 (+20) mit aus-ge-hen-der \T1/lmtt/
+m/n/10.95 above\T1/lmr/m/n/10.95 (+20) - oder
+ []
+
+
+Underfull \hbox (badness 1424) in paragraph at lines 489--490
+[]|\T1/lmr/m/n/10.95 (+20) Lastauflagefläche: Neumann-BC $\OT1/lmr/bx/n/10.95 (
++20) q$ \T1/lmr/m/n/10.95 (+20) auf
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 498.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[8{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+Overfull \hbox (97.20868pt too wide) in paragraph at lines 526--527
+[]\T1/lmr/bx/n/10 (-20) Geometrie-Export: \T1/lmr/m/n/10 (-20) Für je-des IFC-E
+lement wer-den die Drei-e-cke der Ober-flä-che via \T1/lmtt/m/n/10 ifcopenshell
+.geom.create_shape()
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 543.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[9]
+Overfull \hbox (1.95148pt too wide) in paragraph at lines 573--574
+[]\T1/lmr/m/n/10 (-20) Das Ma-te-ri-al-ver-hal-ten wird durch das iso-tro-pe Ho
+o-ke'sche Ge-setz be-schrie-ben. Der Cauchy-Spannungstensor
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 615.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[10]
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <9> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 629.
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 684.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[11]
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 713.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[12]
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 764.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 782--782
+[]|\T1/lmr/m/n/10.95 (+20) Achsenparallele BBox-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
+[]|\T1/lmr/bx/n/10.95 (+20) Echte IFC-Triangulierung
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 782--783
+\T1/lmr/m/n/10.95 (+20) (STL-Merge via if-co-pens-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 783--783
+[]|\T1/lmr/m/n/10.95 (+20) Manuell fest-ge-leg-te $\OML/lmm/m/it/10.95 z$\T1/lm
+r/m/n/10.95 (+20) -
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 783--784
+[]|\T1/lmr/bx/n/10.95 (+20) Automatisch aus Graph-
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 808.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[14]
+Overfull \hbox (1.27597pt too wide) in paragraph at lines 808--809
+[]\T1/lmr/bx/n/10 (-20) Voigt-Homogenisierung: \T1/lmr/m/n/10 (-20) Das vo-lu-m
+en-ge-wich-te-te $\OML/lmm/m/it/10 E[]$ \T1/lmr/m/n/10 (-20) ist ei-ne obe-re S
+chran-ke. Für rei-ne Stahlbeton-
+ []
+
+
+Underfull \hbox (badness 4266) in paragraph at lines 831--832
+[]|\T1/lmr/m/n/10.95 (+20) Testen mit ei-nem Revit-Export (IFC4 +
+ []
+
+
+Underfull \hbox (badness 1721) in paragraph at lines 831--832
+\T1/lmtt/m/n/10.95 Pset_MaterialMechanical\T1/lmr/m/n/10.95 (+20) ); Va-li-die-
+rung der
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 833--833
+[]|\T1/lmr/m/n/10.95 (+20) JSON $\OMS/lmsy/m/n/10.95 !$ \T1/lmr/m/n/10.95 (+20)
+ CesiumJS-
+ []
+
+
+Underfull \hbox (badness 1817) in paragraph at lines 835--835
+[]|\T1/lmr/m/n/10.95 (+20) Gradientenbasierte For-m-
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 849.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[15]
+Overfull \hbox (12.30656pt too wide) in paragraph at lines 873--882
+ [][] 
+ []
+
+
+Underfull \hbox (badness 2744) in paragraph at lines 898--899
+[]|\T1/lmr/m/n/10 (+20) BBox, Ma-te-ri-al, syn-the-ti-sche Punkt-wol-ke; $\OML/
+lmm/m/it/10 Z[]$\T1/lmr/m/n/10 (+20) -
+ []
+
+
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 919.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[16]
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 966.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[17]
+
+File: /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Unive
+rsityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpor
+ateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Log
+o_Dachmarke_RGB_pos.png Graphic file (type png)
+<use /Users/philippschafer/Library/CloudStorage/OneDrive-HochschuleMainz-Univer
+sityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03_11_MIB/ORGA/Corpora
+teDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke/03 PNG/RGB/HSM_Logo
+_Dachmarke_RGB_pos.png>
+Package pdftex.def Info: /Users/philippschafer/Library/CloudStorage/OneDrive-Ho
+chschuleMainz-UniversityofAppliedSciences/03_Tragwerkslabor/06_Projekte/2026_03
+_11_MIB/ORGA/CorporateDesign/Logo-Paket_Hochschule_Mainz_NEU/HSM_Logo_Dachmarke
+/03 PNG/RGB/HSM_Logo_Dachmarke_RGB_pos.png  used on input line 1003.
+(pdftex.def)             Requested size: 65.40823pt x 18.0pt.
+[18] (./IFC_SceneGraph_FEM_Doku.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `IFC_SceneGraph_FEM_Doku.out' has not changed
 .
-(rerunfilecheck)             Checksum: A6F05EEEA39384D9F611703C52F53DA7;4031.
+(rerunfilecheck)             Checksum: 28E9423CA01E3281999E7597A55E3CA0;11732.
  ) 
 Here is how much of TeX's memory you used:
- 19608 strings out of 473190
- 312353 string characters out of 5715800
- 1010316 words of memory out of 5000000
- 42242 multiletter control sequences out of 15000+600000
- 676446 words of font info for 222 fonts, out of 8000000 for 9000
+ 33427 strings out of 473190
+ 633651 string characters out of 5715800
+ 1405075 words of memory out of 5000000
+ 55610 multiletter control sequences out of 15000+600000
+ 686589 words of font info for 274 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,17n,101p,1642b,1361s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,17n,101p,1257b,2082s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/lo
 cal/texlive/2025/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texliv
 e/2025/texmf-dist/fonts/type1/public/lm/lmbx9.pfb></usr/local/texlive/2025/texm
@@ -998,13 +1580,15 @@ public/lm/lmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lm
 ri10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/
 texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/lm/lmtt9.pfb></usr/local/texlive/2025/texmf-dist/fonts/ty
-pe1/public/amsfonts/symbols/msbm10.pfb>
-Output written on IFC_SceneGraph_FEM_Doku.pdf (9 pages, 408396 bytes).
+5/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/t
+ype1/public/lm/lmtt9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public
+/lm/lmtti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts
+/symbols/msbm10.pfb>
+Output written on IFC_SceneGraph_FEM_Doku.pdf (18 pages, 514276 bytes).
 PDF statistics:
- 417 PDF objects out of 1000 (max. 8388607)
- 355 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
- 71350 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 738 PDF objects out of 1000 (max. 8388607)
+ 659 compressed objects within 7 object streams
+ 225 named destinations out of 1000 (max. 500000)
+ 79818 words of extra memory for PDF output out of 89155 (max. 10000000)
 

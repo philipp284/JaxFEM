@@ -1,23 +1,56 @@
 \babel@toc {ngerman}{}\relax 
 \contentsline {section}{\numberline {1}Motivation und Einordnung}{3}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Einordnung in den Projektkontext}{3}{subsection.1.1}%
-\contentsline {section}{\numberline {2}Pipeline-Architektur}{4}{section.2}%
-\contentsline {section}{\numberline {3}Konfigurationsparameter}{4}{section.3}%
-\contentsline {section}{\numberline {4}Scene Graph — Formale Beschreibung}{4}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Graphstruktur}{4}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Automatische Ableitung von Randbedingungen}{5}{subsection.4.2}%
-\contentsline {section}{\numberline {5}FEM-Formulierung}{5}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Konstitutives Gesetz — Lineare 3D-Elastizität}{5}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Effektives Material (Volumenhomogenisierung)}{5}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Randwertproblem}{6}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Von-Mises-Vergleichsspannung}{6}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Diskretisierung — Tet4-Element}{6}{subsection.5.5}%
-\contentsline {section}{\numberline {6}Ergebnisse — Erster Meilenstein}{6}{section.6}%
-\contentsline {subsection}{\numberline {6.1}Modell}{6}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2}FEM-Ergebnisse}{6}{subsection.6.2}%
-\contentsline {section}{\numberline {7}LLM-Integration}{7}{section.7}%
-\contentsline {section}{\numberline {8}Vergleich mit dem Vorgänger-Notebook}{7}{section.8}%
-\contentsline {section}{\numberline {9}Bekannte Einschränkungen (Version 1.0)}{7}{section.9}%
-\contentsline {section}{\numberline {10}Nächste Entwicklungsschritte}{8}{section.10}%
-\contentsline {section}{\numberline {11}Abhängigkeiten}{8}{section.11}%
-\contentsline {section}{Referenzen}{8}{lstnumber.-2.10}%
+\contentsline {subsection}{\numberline {1.1}Ausgangsproblem: die BIM-to-FEM-Lücke}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Wissensrepräsentation als Schlüssel}{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Differenzierbarkeit und JAX}{3}{subsection.1.3}%
+\contentsline {subsection}{\numberline {1.4}Einordnung in die Projekthistorie}{3}{subsection.1.4}%
+\contentsline {section}{\numberline {2}Gesamtarchitektur der Pipeline}{4}{section.2}%
+\contentsline {section}{\numberline {3}Konfigurationsparameter (Schritt 1)}{4}{section.3}%
+\contentsline {section}{\numberline {4}Phase 1: Modellaufbau}{6}{section.4}%
+\contentsline {subsection}{\numberline {4.1}IFC laden und Demo-Modell (Schritt 2)}{6}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}Demo-Modell}{6}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}Eigene IFC-Datei und Z-Normalisierung}{6}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}Bauteil-Parsing und Punktwolkenerzeugung (Schritt 3)}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}IFC-Relationship-Analyse (Schritt 5)}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Semantisches DBSCAN-Clustering (Schritt 6)}{7}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}Clustering-Algorithmus}{7}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}IFC-BBox-Snap}{7}{subsubsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.5}Feature-Extraktion (Schritt 7)}{7}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Räumliche Beziehungsanalyse (Schritt 8)}{7}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Scene Graph — Formale Beschreibung (Schritt 9)}{7}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Graphstruktur}{7}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Graph-Metriken und Analysefunktionen (Schritt 10--11)}{8}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Automatische Ableitung der FEM-Randbedingungen}{8}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Phase 2: FEM-Vorbereitung}{9}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Material-Mapping (Schritt 12)}{9}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}GMSH Tet4-Netz aus IFC-Geometrie (Schritt 13)}{9}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Strategie: STL-Merge}{9}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}Fallback-Strategie}{9}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Netzausgabe}{9}{subsubsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.3}Randbedingungen (Schritt 14)}{10}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Kontaktzonenbasierte BCs}{10}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}JAX-kompatible Location-Funktionen}{10}{subsubsection.6.3.2}%
+\contentsline {section}{\numberline {7}FEM-Formulierung (Schritt 15--16)}{10}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Konstitutives Gesetz — Lineare 3D-Elastizität}{10}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Schwache Form und FEM-Diskretisierung}{10}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Tet4-Element}{11}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}JaxFEM-Problemklasse}{11}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}Von-Mises-Vergleichsspannung und Spannungsberechnung (Schritt 16)}{11}{subsection.7.5}%
+\contentsline {section}{\numberline {8}Ergebnisse — Erster Meilenstein (Schritt 17--18)}{12}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Modell-Kenngrößen}{12}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}FEM-Ergebnisse}{12}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Plausibilitätsbewertung}{12}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Ergebnisrückfluss in den Scene Graph (Schritt 18)}{13}{subsection.8.4}%
+\contentsline {section}{\numberline {9}LLM-Integration (Schritt 19)}{13}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Prompt-Generierung}{13}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Anwendungsbeispiele}{13}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}API-Anbindung}{13}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Vergleich: Vorgänger vs.\ neues Notebook}{14}{section.10}%
+\contentsline {section}{\numberline {11}Bekannte Einschränkungen (Version 1.0)}{14}{section.11}%
+\contentsline {section}{\numberline {12}Roadmap und Nächste Entwicklungsschritte}{15}{section.12}%
+\contentsline {section}{\numberline {13}Softwareabhängigkeiten und Umgebung}{15}{section.13}%
+\contentsline {subsection}{\numberline {13.1}Python-Pakete}{15}{subsection.13.1}%
+\contentsline {subsection}{\numberline {13.2}Conda-Umgebung}{16}{subsection.13.2}%
+\contentsline {subsection}{\numberline {13.3}Ausgabedateien}{16}{subsection.13.3}%
+\contentsline {section}{\numberline {14}Zusammenfassung aller Notebook-Schritte}{17}{section.14}%
+\contentsline {section}{Referenzen}{17}{table.caption.13}%

@@ -24,8 +24,10 @@
 \usepackage{lmodern}
 \usepackage{parskip}
 \usepackage{cite}
-\usepackage{soul}        % Sperrung (Letterspace)
+\usepackage{soul}
 \usepackage{calc}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
 
 % ── CD-Farben (achromat) ─────────────────────────────────────────────────
 \definecolor{hsm-black}{RGB}{0,0,0}
@@ -36,6 +38,7 @@
 \definecolor{code-kw}{RGB}{30,30,30}
 \definecolor{code-str}{RGB}{80,80,80}
 \definecolor{code-comment}{RGB}{130,130,130}
+\definecolor{box-bg}{RGB}{248,248,248}
 
 % ── Logo-Pfad ────────────────────────────────────────────────────────────
 \newcommand{\hsmlogopath}{%
@@ -68,7 +71,30 @@
   xleftmargin=12pt,
   rulecolor=\color{hsm-gray},
 }
+\lstdefinestyle{plain}{
+  language={},
+  backgroundcolor=\color{code-bg},
+  basicstyle=\ttfamily\footnotesize,
+  numbers=none,
+  frame=single,
+  framerule=0.4pt,
+  framesep=4pt,
+  breaklines=true,
+  rulecolor=\color{hsm-gray},
+  xleftmargin=4pt,
+}
 \lstset{style=python}
+
+% ── Info-Box ─────────────────────────────────────────────────────────────
+\newtcolorbox{infobox}[1][]{
+  colback=box-bg,
+  colframe=hsm-darkgray,
+  fonttitle=\bfseries\small,
+  boxrule=0.5pt,
+  left=6pt, right=6pt, top=4pt, bottom=4pt,
+  breakable,
+  #1
+}
 
 % ── Hyperlinks ───────────────────────────────────────────────────────────
 \hypersetup{
@@ -83,7 +109,6 @@
 % ── Kopf-/Fußzeile (CD Briefbogen-Stil) ─────────────────────────────────
 \pagestyle{fancy}
 \fancyhf{}
-% Kopfzeile: links Dokumenttitel, rechts Logo
 \fancyhead[L]{%
   \begin{minipage}[b]{0.55\textwidth}
     \footnotesize\color{hsm-darkgray}
@@ -94,7 +119,6 @@
 \fancyhead[R]{%
   \includegraphics[height=18pt]{\hsmlogopath}%
 }
-% Fußzeile: links "University of Applied Sciences", rechts Seitenzahl
 \fancyfoot[L]{\footnotesize\color{hsm-gray}University of Applied Sciences}
 \fancyfoot[R]{\footnotesize\color{hsm-gray}\thepage}
 \renewcommand{\headrulewidth}{0.6pt}
@@ -116,10 +140,16 @@
   {\thesubsection\quad}
 \titlespacing{\subsection}{0pt}{12pt}{4pt}
 
+\titleformat{\subsubsection}
+  {\normalsize\itshape}
+  {}
+  {0em}
+  {\thesubsubsection\quad}
+\titlespacing{\subsubsection}{0pt}{8pt}{2pt}
+
 % ── Titelseite (Notiz/Protokoll-Stil) ───────────────────────────────────
 \newcommand{\hsmtitlepage}{%
   \thispagestyle{empty}
-  % Kopfzeile der Titelseite
   \noindent
   \begin{minipage}[t]{0.55\textwidth}
     \vspace{0pt}
@@ -149,12 +179,12 @@
   \noindent\rule{\linewidth}{0.4pt}
 
   \vspace{6pt}
-  \noindent\textbf{Meilenstein-Dokumentation $|$ Version 1.0}
+  \noindent\textbf{Technische Dokumentation | Version 1.0}
 
   \vspace{4pt}
   \noindent\color{hsm-gray}\small
-  Automatische FEM-Berechnung aus IFC-Gebäudemodellen\\
-  via semantischen Scene Graphs und NetworkX DiGraph
+  Vollautomatische FEM-Berechnung aus IFC-Gebäudemodellen über semantische\\
+  Scene Graphs, DBSCAN-Clustering und den JAX-basierten Solver JaxFEM
 
   \vspace{4pt}
   \noindent\normalcolor\small Mainz, April 2026
@@ -170,7 +200,7 @@
 % ── Abstract ────────────────────────────────────────────────────────────
 \begin{abstract}
 \noindent
-Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollautomatische Kette von einem IFC-Gebäudemodell~\cite{ifcopenshell} über einen semantischen Scene Graph bis zu einer FEM-Berechnung mit dem JAX-basierten Solver JaxFEM~\cite{jaxfem}. Randbedingungen, Lastflächen und Materialkennwerte werden automatisch aus der Graph-Topologie und den IFC-Properties abgeleitet. Die Ergebnisse (Verschiebungen, Von-Mises-Spannungen) werden in den Scene Graph zurückgeschrieben und als strukturierter LLM-Prompt exportiert. Der erste vollständige Durchlauf mit 149 IFC-Bauteilen, 1\,958 Tet4-Elementen und 1\,917 Freiheitsgraden war erfolgreich.
+Das Jupyter-Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert eine vollautomatische Pipeline von einem IFC-Gebäudemodell~\cite{ifcopenshell} über einen semantischen Scene Graph (NetworkX \texttt{DiGraph}) bis zu einer Finite-Elemente-Berechnung mit dem differenzierbaren JAX-Solver JaxFEM~\cite{jaxfem}. Alle Phasen der Modellvorbereitung — Bauteil-Parsing, DBSCAN-Clustering, Beziehungsanalyse, Randbedingungsableitung, Materialzuweisung und Netzgenerierung — erfolgen ohne manuelle Eingriffe. Die Ergebnisse (nodale Verschiebungen, Von-Mises-Spannungen) werden in den Scene Graph zurückgeschrieben und als strukturierter LLM-Prompt für Spatial-AI-Abfragen exportiert. Der erste vollständige Durchlauf auf der öffentlichen Beispieldatei \texttt{Ifc2x3\_Duplex\_Architecture.ifc} mit 149 IFC-Bauteilen, 13 Graphknoten, 1\,958 Tet4-Elementen und 1\,917 Freiheitsgraden war erfolgreich abgeschlossen. Das Dokument beschreibt jeden der 20 Notebook-Schritte in der Reihenfolge ihrer Ausführung — von den Designentscheidungen und der Algorithmuswahl bis zu den konkreten Parametern, Datenstrukturen und Ergebnisinterpretationen.
 \end{abstract}
 
 \tableofcontents
@@ -179,217 +209,476 @@ Das Notebook \texttt{IFC\_SceneGraph\_FEM.ipynb} realisiert erstmals eine vollau
 % ═══════════════════════════════════════════════════════════════════════
 \section{Motivation und Einordnung}
 
-Die manuelle Vorbereitung von FEM-Modellen aus BIM-Daten ist in der Praxis ein erheblicher Aufwand: Geometrieimport, Randbedingungsdefinition, Netzerstellung und Materialzuweisung werden heute in RFEM, ANSYS oder ähnlichen Programmen weitgehend per Hand durchgeführt. Ziel dieser Pipeline ist die vollständige Automatisierung dieses Prozesses auf Basis von Open-Source-Werkzeugen.
+\subsection{Ausgangsproblem: die BIM-to-FEM-Lücke}
 
-Die fehlende Interoperabilität zwischen BIM-Authoring-Tools und Analyse-Software ist ein seit Jahren bekanntes Forschungsproblem: Jin et al.~\cite{jin2019bim} identifizieren in ihrer bibliometrischen Übersichtsarbeit Interoperabilität, Semantik und die Lücke zwischen „As-designed"- und „As-built"-Leistung als zentrale Hemmnisse der BIM-gestützten Gebäudeanalyse. Aktuelle Systemati­sierungsarbeiten zeigen, dass die Kopplung von BIM und KI im AECO-Bereich an Dynamik gewinnt — Alves et al.~\cite{alves2025bim} kartieren 14 BIM- und 16 KI-Kompetenzen als Grundlage für smarte Bauprojekte —, der Übergang vom statischen Modell zu einem semantisch angereicherten, abfragbaren Wissensgraphen aber noch weitgehend offen ist~\cite{peng2024kg}. Wang et al.~\cite{wang2024kg} demonstrieren, dass ein wissens\-graphbasiertes Framework auf Basis geometrischer Relationen und HLK-Topologie in der Lage ist, Gebäudeenergie­modelle vollautomatisch aus BIM-Daten zu erzeugen; eine Folgestudie zeigt, dass derartige Pipelines auch bei unvollständigen BIM-Daten über einen hierarchischen Regel\-satz zur HLK-Topologie-Vervollständigung robust bleiben~\cite{wang2026hvac} — ein Konzept, das die vorliegende Pipeline auf den FEM-Bereich der Tragwerks\-analyse überträgt. Semantische Digital-Twin-Architekturen für Mauerwerksbrücken~\cite{chacon2026semantic} sowie IFC-gestützte Synthese annotierter Punktwolken für das Deep-Learning-basierte Semantiksegmentierungstraining~\cite{zhai2022bim} bestätigen den übergreifenden Trend zur semantischen Datenanreicherung im Bauwesen.
+Die Vorbereitung eines FEM-Modells aus einem BIM-Gebäudemodell ist in der ingenieurpraktischen Anwendung bis heute ein manuell geprägter Prozess. Der typische Workflow umfasst den Export der Geometrie aus dem BIM-Authoring-Tool (Revit, ArchiCAD, Vectorworks), den Import in ein Analyse-Programm (RFEM, ANSYS, Abaqus, SOFiSTiK), die manuelle Definition aller Randbedingungen und Lastflächen, die Materialzuweisung und schließlich die Netzerstellung — ein Prozess, der bei komplexen Modellen mehrere Personentage in Anspruch nehmen kann.
 
-Zusätzlich zur reinen Geometrieverarbeitung wird die \textbf{semantische Struktur des Gebäudes} als gerichteter Graph (Scene Graph) modelliert. Dieser Graph dient als Wissensrepräsentation für automatische Schlussfolgerungen über Bauteilbeziehungen, Randbedingungen und Lastpfade und ist direkt als Kontext für Large Language Models (LLMs) nutzbar~\cite{poux2025scene}. Den Eingang des Systems kann künftig eine vollautomatische Scan-to-BIM-Pipeline bilden: Chen \& Luo~\cite{chen2026scan} identifizieren in ihrer Dekadenschau (2014–2024) die Automatisierung der Geometrierekonstruktion aus Laserscans als zentrales offenes Forschungsfeld — ein direkter Anknüpfungspunkt für Prio~6 der Roadmap.
+Diese Lücke ist ein seit Jahren dokumentiertes Forschungsproblem. Jin et al.~\cite{jin2019bim} identifizieren in ihrer bibliometrischen Analyse von über 900 Publikationen Interoperabilität, die fehlende Semantik des geometrischen Datenmodells und die Diskrepanz zwischen „As-designed"- und „As-built"-Leistung als die drei zentralen Hemmnisse. Die vorliegende Pipeline adressiert alle drei Punkte: IFC liefert das semantische Vokabular, der Scene Graph schließt die Interoperabilitätslücke durch eine topologiebasierte Inferenz, und die offene Architektur erlaubt künftig die Einspeisung von Scan-to-BIM-Daten~\cite{chen2026scan,mahmoud2026scan}.
 
-\subsection{Einordnung in den Projektkontext}
+\subsection{Wissensrepräsentation als Schlüssel}
 
-\begin{itemize}[noitemsep]
-  \item \textbf{Vorgänger:} \texttt{IFC\_FEM\_3D.ipynb} — BBox-Netz, manuelle Randbedingungen, erste funktionierende IFC-to-JaxFEM-Pipeline
-  \item \textbf{Dieses Notebook:} Echte IFC-Geometrie, automatischer Scene Graph, automatische BCs
-  \item \textbf{Nächste Stufe:} Heterogenes Materialfeld, LLM-Auto-Call, CesiumJS-Ergebnisrückfluss
-\end{itemize}
+Der Kern der Neuerung gegenüber früheren BIM-to-FEM-Ansätzen liegt in der expliziten Wissensrepräsentation als gerichteter Graph. Anstatt die IFC-Geometrie direkt in ein Netz zu überführen, wird zunächst ein semantischer Scene Graph $G = (V, E)$ aufgebaut, der alle Bauteilinstanzen als Knoten und ihre räumlichen sowie ontologischen Beziehungen als Kanten enthält. Erst dieser Graph liefert die Information, die für eine automatische Ableitung der Randbedingungen und Lastflächen benötigt wird: Welche Wände stehen frei (Einspannung am Fuß)? Welche Decke liegt oben (Lastauflagefläche)?
 
-% ═══════════════════════════════════════════════════════════════════════
-\section{Pipeline-Architektur}
+Poux \& Lehtola~\cite{poux2025scene} zeigen in ihrer Arbeit zu 3D Scene Graphs für Spatial AI, dass diese Repräsentation für LLM-gestützte Abfragen besonders geeignet ist, da sie gleichzeitig geometrische und semantische Information in einer für Sprachmodelle verständlichen, strukturierten Textform serialisierbar macht. Wang et al.~\cite{wang2024kg} demonstrieren analoge Ideen für die automatische Generierung von Gebäudeenergiemodellen aus BIM-Daten über wissensgraphbasierte Frameworks; eine Folgearbeit~\cite{wang2026hvac} zeigt die Robustheit solcher Ansätze auch bei unvollständigen IFC-Daten. Alves et al.~\cite{alves2025bim} kartieren 14 BIM- und 16 KI-Kompetenzen als Grundlage smarter Bauprojekte und bestätigen den Trend zur semantischen Anreicherung. Peng et al.~\cite{peng2024kg} zeigen, wie Wissensgraphen im Facility-Management-Bereich eingesetzt werden, um strukturell ähnliche Fragen über Bauteil\-beziehungen zu beantworten.
 
-\begin{figure}[H]
-\centering
-\begin{minipage}{0.92\textwidth}
-\begin{lstlisting}[language={},style={},
-  backgroundcolor=\color{code-bg},
-  basicstyle=\ttfamily\footnotesize,
-  frame=single, numbers=none,
-  rulecolor=\color{hsm-gray}]
-IFC-Datei (IfcOpenShell)
-   +-- Bauteil-Parsing (IfcWall, IfcColumn, IfcSlab, ...)
-   |       +-- BBox + Schwerpunkt (Weltkoordinaten, m)
-   |       +-- Material (E, nu aus Pset_MaterialMechanical)
-   +-- IFC-Relationship-Analyse
-   |       +-- IfcRelAggregates       -> contains / part_of
-   |       +-- IfcRelContainedInSpatialStructure -> hosted_in
-   |       +-- IfcRelAssociatesMaterial -> shared_material
-   |       +-- BBox-Spatial           -> above/adjacent/near
-   +-- DBSCAN-Clustering (pro Label)
-   +-- Feature-Extraktion (Volumen, Hoehe, Kompaktheit)
-   +-- NetworkX DiGraph (Scene Graph)
-   |       +-- Graphanalyse -> BC + Lastflaechen
-   |       +-- Material-Mapping (volumengew. E_eff)
-   +-- GMSH Tet4-Netz (echte IFC-Geometrie)
-   +-- JaxFEM Solver (lineare 3D-Elastizitaet)
-   +-- Ergebnisse -> Scene Graph -> LLM-Prompt
-\end{lstlisting}
-\end{minipage}
-\caption{Vollständige Pipeline \texttt{IFC\_SceneGraph\_FEM.ipynb}}
-\end{figure}
+\subsection{Differenzierbarkeit und JAX}
 
-\textbf{Einheiten:} kN und m durchgängig (E-Modul in kN/m², Verschiebungen in mm für Ausgabe).
+Ein weiterer Vorteil der Wahl von JaxFEM~\cite{jaxfem} als Solver liegt in der JAX-basierten Implementierung: Der gesamte FEM-Solver ist durch \texttt{jax.grad} differenzierbar. Das öffnet den Weg zu gradientenbasierter Topologieoptimierung und Formoptimierung direkt aus dem Notebook heraus — ohne Umbau der Solver-Architektur. Dies ist Prio~7 der Roadmap (Abschnitt~\ref{sec:roadmap}).
 
-% ═══════════════════════════════════════════════════════════════════════
-\section{Konfigurationsparameter}
-
-Alle Parameter sind in Schritt~1 des Notebooks zentral konfigurierbar:
+\subsection{Einordnung in die Projekthistorie}
 
 \begin{table}[H]
 \centering
-\caption{Konfigurationsparameter}
-\begin{tabular}{lrl}
+\caption{Notebook-Generationen des JaxFEM-Projekts}
+\begin{tabular}{lll}
 \toprule
-\textbf{Parameter} & \textbf{Standardwert} & \textbf{Bedeutung} \\
+\textbf{Notebook} & \textbf{Netzgeometrie} & \textbf{Neuerung} \\
 \midrule
-\texttt{USE\_DEMO\_MODEL} & \texttt{False} & Demo-IFC oder eigene Datei \\
-\texttt{MESH\_SIZE} & 1{,}0\,m & Tet4-Elementgröße \\
-\texttt{E\_DEFAULT} & 30\,000 N/m² & Fallback E-Modul (C25/30) \\
-\texttt{NU\_DEFAULT} & 0{,}2 & Fallback Querdehnzahl \\
-\texttt{GAMMA\_BETON} & 25{,}0\,kN/m³ & Wichte Stahlbeton \\
-\texttt{Q\_NUTZLAST} & 5{,}0\,kN/m² & Charakteristische Nutzlast \\
-\texttt{DBSCAN\_EPS} & 0{,}6\,m & Clustering-Radius \\
-\texttt{DBSCAN\_MIN\_SAMPLES} & 5 & Mindestpunkte pro Cluster \\
-\texttt{REL\_THRESHOLD} & 5{,}0\,m & Max. Distanz für Graphkante \\
-\texttt{ADJ\_TOLERANCE} & 0{,}05\,m & BBox-Berührungs-Toleranz \\
+\texttt{kragarm.ipynb} & Analytisch & Erster JaxFEM-Test \\
+\texttt{Rechteckbalken\_3D.ipynb} & Manuell (Quader) & 3D-Elastizität \\
+\texttt{IFC\_FEM\_3D.ipynb} & BBox-Tet4 & Erster IFC-Import \\
+\texttt{SceneGraph\_FEM.ipynb} & BBox-Tet4 & Synthetischer Scene Graph \\
+\texttt{IFC\_SceneGraph\_FEM.ipynb} & Echte IFC-Geometrie & \textbf{Vollautomatische Pipeline} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % ═══════════════════════════════════════════════════════════════════════
-\section{Scene Graph — Formale Beschreibung}
+\section{Gesamtarchitektur der Pipeline}
+
+Die Pipeline gliedert sich in 20 sequenzielle Notebook-Schritte, die in drei logische Phasen eingeteilt werden können:
+
+\begin{infobox}[title={Phasenübersicht}]
+\textbf{Phase~1 — Modellaufbau (Schritte 0–9):} IFC-Datei laden, Bauteile parsen, Punktwolken erzeugen, IFC-Relationships extrahieren, DBSCAN-Clustering, Feature-Extraktion, räumliche Beziehungsanalyse, Scene Graph aufbauen.\\[4pt]
+\textbf{Phase~2 — FEM-Vorbereitung (Schritte 10–14):} Graphanalyse für Randbedingungen, Material-Mapping, GMSH Tet4-Netz, Randbedingungs-Kontaktzonen.\\[4pt]
+\textbf{Phase~3 — Berechnung und Export (Schritte 15–20):} JaxFEM-Solver, Spannungsberechnung, Visualisierung, Ergebnisrückfluss in den Graph, LLM-Prompt-Generierung.
+\end{infobox}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.95\textwidth}
+\begin{lstlisting}[style=plain]
+IFC-Datei (IfcOpenShell)
+   +-- [Schritt 2] Bauteil-Parsing (IfcWall, IfcColumn, IfcSlab, ...)
+   |       +-- BBox + Schwerpunkt (Weltkoordinaten, Z-normiert, m)
+   |       +-- Material: E, nu aus Pset_MaterialMechanical
+   |       +-- Synthetische Punktwolke (800 Punkte/Bauteil, DBSCAN-Eingabe)
+   +-- [Schritt 5] IFC-Relationship-Analyse
+   |       +-- IfcRelAggregates              -> part_of / contains
+   |       +-- IfcRelContainedInSpatialStr.  -> hosted_in / Stockwerk
+   |       +-- IfcRelAssociatesMaterial      -> shared_material
+   +-- [Schritt 6] DBSCAN-Clustering (pro semantischem Label)
+   |       +-- IFC-BBox-Snap (Schwerpunkt-Matching)
+   +-- [Schritt 7] Feature-Extraktion: Volumen, Hoehe, Kompaktheit
+   +-- [Schritt 8] Geometrische Beziehungsanalyse
+   |       +-- above / below (dz > 0.5 m)
+   |       +-- adjacent (BBox-Toleranz 5 cm)
+   |       +-- inside / contains (BBox-Einschachtelung)
+   |       +-- near (Distanz < REL_THRESHOLD)
+   +-- [Schritt 9] NetworkX DiGraph (Scene Graph G)
+   |       +-- [Schritt 11] Graphanalyse -> Einspannknoten + Lastflaechen
+   |       +-- [Schritt 12] Material-Mapping: E_eff, nu_eff (volumengewichtet)
+   +-- [Schritt 13] GMSH Tet4-Netz
+   |       +-- IFC-Dreiecke via ifcopenshell.geom (STL-Binary)
+   |       +-- ClassifySurfaces + CreateGeometry -> Volumen
+   |       +-- fragment() -> Knoten-Merge an Kontaktflaechen
+   +-- [Schritt 14] Randbedingungen aus Kontaktzonen
+   +-- [Schritt 15] JaxFEM Solver (lineare 3D-Elastizitaet, UMFPACK)
+   +-- [Schritt 16] Tet4-Spannungen (Knotenaveragierung)
+   +-- [Schritt 18] Ergebnisse -> Scene Graph (pro Knoten)
+   +-- [Schritt 19] LLM-Prompt (strukturierter Text fuer Spatial AI)
+\end{lstlisting}
+\end{minipage}
+\caption{Vollständige Pipeline \texttt{IFC\_SceneGraph\_FEM.ipynb} mit Schrittverweisen}
+\end{figure}
+
+\textbf{Einheitensystem:} Alle Größen sind in \textbf{kN} und \textbf{m} gehalten (E-Modul in kN/m², Verschiebungen im Solver in m, Ausgabe in mm). Dies entspricht der im Tragwerkslabor üblichen Praxis.
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Konfigurationsparameter (Schritt 1)}
+\label{sec:config}
+
+Alle Steuerparameter sind in einer einzigen Zelle gebündelt. Dies ermöglicht reproduzierbare Berechnungen durch einfaches Anpassen eines einzelnen Codeblocks.
+
+\begin{table}[H]
+\centering
+\caption{Zentrale Konfigurationsparameter (Schritt 1)}
+\begin{tabular}{p{5cm}rp{7cm}}
+\toprule
+\textbf{Parameter} & \textbf{Standardwert} & \textbf{Bedeutung und Empfehlung} \\
+\midrule
+\texttt{USE\_DEMO\_MODEL} & \texttt{False} & \texttt{True}: synthetisches Demo-IFC (2 Wände, 1 Stütze, 1 Decke). \texttt{False}: Pfad \texttt{IFC\_PATH} einlesen. \\
+\texttt{IFC\_PATH} & Duplex-Datei & Absoluter Pfad zur eigenen IFC-Datei. \\
+\texttt{MESH\_SIZE} & 1{,}0\,m & Maximale Tet4-Elementgröße. Für Produktionsberechnungen: 0{,}2–0{,}5\,m. \\
+\texttt{E\_DEFAULT} & 30\,000\,000\,kN/m² & Fallback-E-Modul (C25/30 = 30\,GPa), falls IFC keine Materialkennwerte enthält. \\
+\texttt{NU\_DEFAULT} & 0{,}20 & Fallback-Querdehnzahl. \\
+\texttt{GAMMA\_BETON} & 25{,}0\,kN/m³ & Wichte für Eigengewichtsberechnung. \\
+\texttt{Q\_NUTZLAST} & 5{,}0\,kN/m² & Charakteristische Nutzlast nach DIN EN 1991-1-1. \\
+\texttt{DBSCAN\_EPS} & 0{,}6\,m & Nachbarschaftsradius für DBSCAN (Clustering-Empfindlichkeit). Zu klein: Cluster werden aufgespalten. Zu groß: Bauteile werden zusammengeführt. \\
+\texttt{DBSCAN\_MIN\_SAMPLES} & 5 & Mindestpunkte pro Cluster (Rauschunterdrückung). \\
+\texttt{REL\_THRESHOLD} & 5{,}0\,m & Maximaler Schwerpunktabstand, bis zu dem eine geometrische Graphkante angelegt wird. Verhindert globale Vollvernetzung des Graphen. \\
+\texttt{ADJ\_TOLERANCE} & 0{,}05\,m & BBox-Berührungs-Toleranz für \texttt{adjacent}-Kanten (5\,cm für Fugentoleranzen). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Das semantische Mapping von IFC-Klassen auf interne Labels ist als Dictionary \texttt{IFC\_LABEL\_MAP} definiert:
+
+\begin{lstlisting}[numbers=none, caption={IFC-Klassen-Mapping}]
+IFC_LABEL_MAP = {
+    'IfcWall'             : 'wall',
+    'IfcWallStandardCase' : 'wall',
+    'IfcColumn'           : 'column',
+    'IfcSlab'             : 'slab',
+    'IfcBeam'             : 'beam',
+    'IfcFooting'          : 'footing',
+    'IfcPile'             : 'pile',
+}
+\end{lstlisting}
+
+Nicht in dieser Liste enthaltene IFC-Typen (Fenster, Türen, Treppen, Installationen) werden vom Parsing ignoriert — dies ist eine bewusste Designentscheidung für die reine Tragwerksanalyse.
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Phase 1: Modellaufbau}
+
+\subsection{IFC laden und Demo-Modell (Schritt 2)}
+
+\subsubsection{Demo-Modell}
+
+Wenn \texttt{USE\_DEMO\_MODEL = True}, erzeugt die Funktion \texttt{create\_demo\_ifc()} ein synthetisches IFC4-Modell mit \texttt{ifcopenshell.api}: zwei parallele Wände ($4{,}0 \times 0{,}2 \times 2{,}8$\,m, bei $y = 0$ und $y = 3{,}8$\,m), eine mittige Stütze ($0{,}2 \times 0{,}2 \times 2{,}8$\,m) und eine Decke ($4{,}0 \times 4{,}0 \times 0{,}2$\,m auf $z = 2{,}8$\,m). Alle Bauteile erhalten \texttt{Pset\_MaterialMechanical}-Properties ($E = 30\,000$\,kN/m² bzw.\ $35\,000$\,kN/m² für die Stütze, $\nu = 0{,}2$). Das Demo-Modell wird in eine temporäre IFC-Datei geschrieben und dann über denselben Parsing-Pfad wie eine echte IFC-Datei eingelesen.
+
+\subsubsection{Eigene IFC-Datei und Z-Normalisierung}
+
+Bei \texttt{USE\_DEMO\_MODEL = False} wird \texttt{IFC\_PATH} geöffnet. Vor dem Bauteil-Parsing erfolgt ein zweistufiges Vorgehen: In \textbf{Pass~1} werden alle BBoxen kurz eingelesen, um das globale Minimum der $z$-Koordinate aller Bauteile zu bestimmen. Dieser Wert \texttt{Z\_GLOBAL\_MIN} wird von allen $z$-Koordinaten subtrahiert, sodass das Gebäude mit dem Fußpunkt bei $z = 0$ beginnt. Dies ist entscheidend für die spätere automatische Erkennung der Einspannebene.
+
+\subsection{Bauteil-Parsing und Punktwolkenerzeugung (Schritt 3)}
+
+Für jedes tragwerksrelevante Element der IFC-Datei werden in \textbf{Pass~2} folgende Größen extrahiert:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Semantisches Label} über \texttt{IFC\_LABEL\_MAP}
+  \item \textbf{Bounding Box} aus den Mesh-Vertices via \texttt{ifcopenshell.geom.create\_shape()} mit \texttt{USE\_WORLD\_COORDS = True}: $\mathbf{b}_\text{min}$, $\mathbf{b}_\text{max}$ (Z-normiert, m)
+  \item \textbf{Materialkennwerte} $E$ und $\nu$ aus \texttt{Pset\_MaterialMechanical.YoungModulus} / \texttt{PoissonRatio} (Fallback: \texttt{E\_DEFAULT}, \texttt{NU\_DEFAULT})
+  \item \textbf{Synthetische Punktwolke}: Gleichförmig verteilte Punkte in der BBox (Zielzahl 800, skaliert mit dem Volumenanteil, Minimum 50 Punkte)
+\end{enumerate}
+
+Elemente mit degenerierter BBox (Volumen $< 10^{-6}$\,m³) oder fehlgeschlagener Geometrieerzeugung werden übersprungen. Die Punktwolken aller Bauteile werden zu einer gemeinsamen Punktwolke \texttt{cloud\_pts} (Shape: $N \times 3$) und einem Label-Array \texttt{cloud\_labels} zusammengeführt — die Eingabe für DBSCAN in Schritt~6.
+
+\subsection{IFC-Relationship-Analyse (Schritt 5)}
+
+Die Funktion \texttt{extract\_ifc\_relationships()} liest drei Typen von IFC-Beziehungen aus:
+
+\begin{table}[H]
+\centering
+\caption{Extrahierte IFC-Beziehungstypen}
+\begin{tabular}{lll}
+\toprule
+\textbf{IFC-Beziehung} & \textbf{Kanten-Typ} & \textbf{Semantik} \\
+\midrule
+\texttt{IfcRelAggregates} & \texttt{contains} / \texttt{part\_of} & Hierarchische Zerlegung (z.\,B. Wand enthält Fenster) \\
+\texttt{IfcRelContainedInSpatialStructure} & \texttt{hosted\_in} & Zuordnung zu Stockwerk/Gebäude \\
+\texttt{IfcRelAssociatesMaterial} & \texttt{shared\_material} & Bauteile mit identischem Material \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Zur Auflösung der Beziehungen auf interne Schlüssel wird eine GUID-Lookup-Tabelle verwendet. In der Duplex-Beispieldatei liefert \texttt{IfcRelAggregates} keine direkten Bauteil-zu-Bauteil-Kanten (der Wert ist 0 IFC-Kanten). Dies ist modellspezifisch und kein Algorithmusfehler: Das Duplex-Modell verwendet keine explizite Aggregationshierarchie zwischen den tragwerksrelevanten Elementen. Alle 24 Kanten des finalen Graphen stammen daher aus der geometrischen Beziehungsanalyse (Schritt~8).
+
+\subsection{Semantisches DBSCAN-Clustering (Schritt 6)}
+
+\subsubsection{Clustering-Algorithmus}
+
+Analog Poux \& Lehtola~\cite{poux2025scene} wird DBSCAN (\textit{Density-Based Spatial Clustering of Applications with Noise}) pro semantischem Label auf die zugehörigen Punkte der gemeinsamen Punktwolke angewendet. DBSCAN wurde gegenüber $k$-Means gewählt, da es keine a priori bekannte Clusteranzahl benötigt und beliebig geformte Cluster sowie Rauschen ($\text{Label} = -1$, d.\,h. Ausreißer) behandeln kann. Die Parameter \texttt{DBSCAN\_EPS} (Nachbarschaftsradius) und \texttt{DBSCAN\_MIN\_SAMPLES} steuern die Sensitivität.
+
+\subsubsection{IFC-BBox-Snap}
+
+Da die Punktwolken synthetisch aus den IFC-BBoxen erzeugt wurden, ist der Clustering-Schritt für echte IFC-Daten redundant — die Instanzsegmentierung ist bereits durch das IFC-Parsing gegeben. In diesem Fall (\texttt{USE\_DEMO\_MODEL = False}) wird das Clustering daher übersprungen und jedes Element direkt als eigener Cluster angelegt. Für Demo-Daten gleicht der anschließende \texttt{snap\_to\_ifc\_bboxes()}-Schritt Cluster-Schwerpunkte auf die nächstgelegenen exakten IFC-BBoxen ab und übernimmt die Materialkennwerte.
+
+\subsection{Feature-Extraktion (Schritt 7)}
+
+Für jeden Cluster-Knoten werden geometrische Merkmale berechnet:
+
+\begin{table}[H]
+\centering
+\caption{Extrahierte Objektfeatures}
+\begin{tabular}{lll}
+\toprule
+\textbf{Feature} & \textbf{Formel} & \textbf{Bedeutung} \\
+\midrule
+$V$ & $\Delta x \cdot \Delta y \cdot \Delta z$ & BBox-Volumen (m³) \\
+$SA$ & $\text{ConvexHull}(\{p_i\}).area$ & Konvexe Hüllfläche (m²) \\
+$C$ & $SA^3 / (36\pi V^2)$ & Kompaktheit (1 = Kugel) \\
+$h$ & $\Delta z$ & Höhe (m) \\
+$AR$ & $\max(\Delta) / \min(\Delta)$ & Aspektverhältnis \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Die Kompaktheit $C$ ist ein dimensionsloses Maß für die Schlankeit eines Bauteils: Eine Kugel hat $C = 1$, flache Decken haben sehr kleine $C$-Werte, schlanke Stützen hohe $AR$-Werte. Diese Features werden den Graphknoten als Attribute übergeben und können für LLM-Abfragen oder spätere Klassifikatoren genutzt werden.
+
+\subsection{Räumliche Beziehungsanalyse (Schritt 8)}
+
+Der Drei-Stufen-Algorithmus in \texttt{classify\_spatial\_rel()} prüft für jedes Bauteilpaar $(i, j)$ mit Schwerpunktabstand $d_{ij} < d_\text{rel}$:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Vertikal:} Falls $|\Delta z| > 0{,}5$\,m → \texttt{above} (obj$_i$ über obj$_j$) oder \texttt{below}
+  \item \textbf{Containment:} Liegt BBox$_i$ vollständig in BBox$_j$? → \texttt{inside} / \texttt{contains}
+  \item \textbf{Adjacency:} Berühren sich die BBoxen mit Toleranz $\varepsilon_\text{adj} = 5$\,cm? → \texttt{adjacent}
+  \item \textbf{Fallback:} Keine der obigen → \texttt{near}
+\end{enumerate}
+
+Die geometrischen Relationships werden mit den IFC-Relationships aus Schritt~5 kombiniert, wobei bereits vorhandene Paare nicht doppelt eingetragen werden. Das Ergebnis ist eine Liste aller Kanten mit Typ und Quelle.
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Scene Graph — Formale Beschreibung (Schritt 9)}
 
 \subsection{Graphstruktur}
 
-Der Scene Graph $G = (V, E)$ ist ein gerichteter Graph (NetworkX \texttt{DiGraph}).
+Der Scene Graph $G = (V, E)$ ist ein gerichteter Graph, implementiert als NetworkX \texttt{DiGraph}.
 
-\textbf{Knotenmenge $V$:} Jeder Knoten $v_i \in V$ repräsentiert eine Bauteilinstanz (nach DBSCAN-Clustering) mit den Attributen:
+\textbf{Knotenmenge $V$:} Jeder Knoten $v_i \in V$ repräsentiert eine Bauteilinstanz mit folgenden Attributen:
 \[
-  v_i = \bigl(\,\text{label},\; \text{IFC-Name},\; \mathbf{x}_c,\; V_i,\; h_i,\; E_i,\; \nu_i,\; \ldots\bigr)
+  v_i = \bigl(\,\text{label},\;\text{ifc\_name},\;\text{ifc\_guid},\;\mathbf{x}_c,\;
+               \mathbf{b}_\text{min},\;\mathbf{b}_\text{max},\;V_i,\;h_i,\;C_i,\;E_i,\;\nu_i,\;\ldots\bigr)
 \]
 
-\textbf{Kantenmenge $E$:} Jede Kante $e_{ij} \in E$ trägt einen Beziehungstyp $r$ und eine Quelle $s \in \{\text{ifc}, \text{geometric}\}$:
+\textbf{Kantenmenge $E$:} Jede Kante $e_{ij} \in E$ trägt Beziehungstyp \texttt{relationship} und Quelle \texttt{source} $\in \{\texttt{geometric}, \texttt{ifc}\}$:
 
 \begin{table}[H]
 \centering
 \caption{Kanten-Typen im Scene Graph}
-\begin{tabular}{lll}
+\begin{tabular}{llp{7cm}}
 \toprule
-\textbf{Typ} & \textbf{Quelle} & \textbf{Bedeutung} \\
+\textbf{Typ} & \textbf{Quelle} & \textbf{Bedeutung und Ableitung} \\
 \midrule
-\texttt{above / below} & geometrisch & Vertikale Lagebeziehung ($\Delta z > 0{,}5$\,m) \\
-\texttt{adjacent} & geometrisch & BBox-Abstand $< \varepsilon_\text{adj}$ \\
-\texttt{near} & geometrisch & Abstand $< d_\text{rel}$ \\
-\texttt{inside / contains} & geometrisch & BBox-Einschachtelung \\
-\texttt{part\_of / contains} & IFC & \texttt{IfcRelAggregates} \\
-\texttt{hosted\_in} & IFC & \texttt{IfcRelContainedInSpatialStructure} \\
-\texttt{shared\_material} & IFC & \texttt{IfcRelAssociatesMaterial} \\
+\texttt{above} / \texttt{below} & geometrisch & Vertikale Lagebeziehung ($|\Delta z| > 0{,}5$\,m zwischen Schwerpunkten) \\
+\texttt{adjacent} & geometrisch & BBox-Abstand $< \varepsilon_\text{adj} = 5$\,cm in mind. einer Achse \\
+\texttt{near} & geometrisch & Schwerpunktabstand $< d_\text{rel}$, keine engere Relation \\
+\texttt{inside} / \texttt{contains} & geometrisch & Vollständige BBox-Einschachtelung \\
+\texttt{part\_of} / \texttt{contains} & IFC & \texttt{IfcRelAggregates}: hierarchische Zerlegung \\
+\texttt{hosted\_in} & IFC & \texttt{IfcRelContainedInSpatialStructure}: Stockwerkzuordnung \\
+\texttt{shared\_material} & IFC & \texttt{IfcRelAssociatesMaterial}: gleiche Materialspezifikation \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\subsection{Automatische Ableitung von Randbedingungen}
+\subsection{Graph-Metriken und Analysefunktionen (Schritt 10--11)}
 
-Die Graphanalyse leitet aus der Topologie automatisch FEM-Randbedingungen ab:
+Die Funktion \texttt{analyze\_graph()} berechnet folgende Metriken:
+
+\begin{itemize}[noitemsep]
+  \item Anzahl schwach zusammenhängender Komponenten (\texttt{nx.number\_weakly\_connected\_components})
+  \item Verteilung der semantischen Labels auf Knoten
+  \item Verteilung der Kantentypen
+  \item IFC-Kanten- vs.\ Geometrie-Kanten-Anteil
+  \item Automatische Identifikation von \textbf{Einspannknoten} und \textbf{Lastflächenknoten}
+\end{itemize}
+
+\subsection{Automatische Ableitung der FEM-Randbedingungen}
+
+Die topologiebasierte BC-Ableitung ist das Herzstück der Automatisierungslogik:
 
 \begin{table}[H]
 \centering
-\caption{Graph-Topologie → FEM-Randbedingungen}
-\begin{tabular}{ll}
+\caption{Graphtopologie $\to$ FEM-Randbedingungen}
+\begin{tabular}{p{7cm}p{7cm}}
 \toprule
 \textbf{Graph-Eigenschaft} & \textbf{FEM-Ableitung} \\
 \midrule
-\texttt{wall}/\texttt{column} ohne eingehende \texttt{below}-Kante & Einspannung am Fuß ($z = z_\text{min}$) \\
-\texttt{slab} mit ausgehender \texttt{above}-Kante & Lastfläche oben \\
-\texttt{slab} auf höchster $z$-Ebene & Primäre Lastauflagefläche \\
+\texttt{wall}, \texttt{column} oder \texttt{footing} ohne eingehende \texttt{below}-Kante & Einspannung am Fußpunkt: $\mathbf{u} = \mathbf{0}$ auf der Ebene $z = z_\text{min}$ dieses Elements \\
+\texttt{slab} mit ausgehender \texttt{above}- oder \texttt{adjacent}-Kante & Lastauflagefläche: Neumann-BC $\mathbf{q}$ auf Oberfläche \\
+Kein \texttt{slab} als Lastfläche identifiziert & Fallback: alle Knoten mit Label \texttt{slab} werden als Lastfläche verwendet \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+Diese Regeln basieren auf dem Prinzip der \textit{geschlossenen Lastpfade}: Ein tragendes Element ohne Auflager darunter muss am Boden eingespannt sein; eine Decke, die über anderen Elementen liegt, ist die primäre Lastauflagefläche. Die Ableitung ist modellspezifisch robust, solange das IFC-Modell eine konsistente vertikale Geometrie aufweist.
+
 % ═══════════════════════════════════════════════════════════════════════
-\section{FEM-Formulierung}
+\section{Phase 2: FEM-Vorbereitung}
+
+\subsection{Material-Mapping (Schritt 12)}
+
+Aus den Graphknoten-Attributen wird der volumengewichtete effektive E-Modul und die effektive Querdehnzahl nach der Voigt-Schranke (obere Schranke der Homogenisierungstheorie, Iso-Dehnungsannahme) berechnet:
+
+\begin{equation}
+  E_\text{eff} = \frac{\displaystyle\sum_{i} E_i \cdot V_i}{\displaystyle\sum_{i} V_i},
+  \qquad
+  \nu_\text{eff} = \frac{\displaystyle\sum_{i} \nu_i \cdot V_i}{\displaystyle\sum_{i} V_i}
+\end{equation}
+
+Daraus folgen die Lamé-Parameter für den Solver:
+\begin{equation}
+  \mu = \frac{E_\text{eff}}{2(1+\nu_\text{eff})},
+  \qquad
+  \lambda = \frac{E_\text{eff}\,\nu_\text{eff}}{(1+\nu_\text{eff})(1-2\nu_\text{eff})}
+\end{equation}
+
+Die Voigt-Formulierung ist eine konservative Näherung: Sie überschätzt die Steifigkeit heterogener Verbundsysteme (Stahl-Beton-Verbund, Holz-Beton-Verbunddecken). Für homogene Stahlbetongebäude wie das Duplex-Modell — alle Bauteile haben dasselbe $E_i = 30\,000\,000$\,kN/m² — liefert sie das exakte Ergebnis ($E_\text{eff} = 30\,000\,000$\,kN/m²). Die Erweiterung auf bauteilweises heterogenes Materialfeld ist Prio~2 der Roadmap.
+
+\subsection{GMSH Tet4-Netz aus IFC-Geometrie (Schritt 13)}
+
+\subsubsection{Strategie: STL-Merge}
+
+Die Funktion \texttt{build\_tet4\_from\_ifc()} erzeugt das Volumennetz in sechs Teilschritten:
+
+\begin{enumerate}[noitemsep]
+  \item \textbf{Geometrie-Export:} Für jedes IFC-Element werden die Dreiecke der Oberfläche via \texttt{ifcopenshell.geom.create\_shape()} mit \texttt{USE\_WORLD\_COORDS = True} eingelesen (Vertices + Faces-Array).
+  \item \textbf{Z-Normalisierung:} Alle $z$-Koordinaten werden um \texttt{Z\_GLOBAL\_MIN} verschoben.
+  \item \textbf{STL-Binary-Schreiben:} Die Dreiecke werden ohne externes Paket (nur \texttt{struct.pack}) als binäre STL-Datei in eine temporäre Datei geschrieben.
+  \item \textbf{GMSH-Merge:} \texttt{gmsh.merge(stl)} lädt die Oberflächentriangulierung. \texttt{ClassifySurfaces()} klassifiziert planare Patches; \texttt{CreateGeometry()} schließt die Oberfläche zu einem Volumen.
+  \item \textbf{Fragment:} \texttt{gmsh.model.occ.fragment()} verbindet alle Volumen an gemeinsamen Kontaktflächen. Dies ist der kritische Schritt für die spätere Knotenkompatibilität an Wand-Decken-Übergängen: Ohne Fragment werden an den Schnittkanten doppelte Knoten erzeugt, was zu Sprüngen im Verschiebungsfeld führt.
+  \item \textbf{Vernetzung:} \texttt{gmsh.model.mesh.generate(3)} erzeugt das Tet4-Netz mit Elementgröße \texttt{MESH\_SIZE}. Algorithm3D = 4 (Frontal-Delaunay) liefert qualitativ hochwertige Tetraeder.
+\end{enumerate}
+
+\subsubsection{Fallback-Strategie}
+
+Wenn \texttt{ClassifySurfaces} für ein Element kein geschlossenes Volumen erzeugt (offene STL-Geometrie, degenerierende Dreiecke), wird automatisch auf eine BBox-Approximation zurückgefallen. Dies wird mit einem Hinweis protokolliert. In der Praxis tritt der Fallback bei IFC-Dateien mit fehlendem oder unvollständigem Geometrie-Export auf.
+
+\subsubsection{Netzausgabe}
+
+Das fertige Netz wird mit \texttt{meshio} als \texttt{.msh}-Datei (GMSH-Format) und als \texttt{.vtu}-Datei (VTK-Format, für Paraview/PyVista) exportiert. Für JaxFEM werden extrahiert:
+\begin{itemize}[noitemsep]
+  \item \texttt{points\_m} — Knotenkoordinaten (Shape: $N_K \times 3$, in m)
+  \item \texttt{cells\_m} — Konnektivitätstabelle (Shape: $N_E \times 4$, Integer-Indizes)
+\end{itemize}
+
+\subsection{Randbedingungen (Schritt 14)}
+
+\subsubsection{Kontaktzonenbasierte BCs}
+
+Für jede \texttt{adjacent}-, \texttt{above}- oder \texttt{below}-Kante im Scene Graph wird die Schnitt-BBox der beiden beteiligten Bauteile berechnet:
+\[
+  \mathbf{b}^\cap_\text{min} = \max(\mathbf{b}^A_\text{min}, \mathbf{b}^B_\text{min}) - \varepsilon,
+  \qquad
+  \mathbf{b}^\cap_\text{max} = \min(\mathbf{b}^A_\text{max}, \mathbf{b}^B_\text{max}) + \varepsilon
+\]
+mit $\varepsilon = \texttt{MESH\_SIZE}/4$. Diese Schnitt-BBox definiert die Kontaktzone. Der BC-Typ wird aus den Materialkennwerten abgeleitet:
+
+\begin{itemize}[noitemsep]
+  \item \textbf{Holzkonstruktionen} (Stichwortsuche in Materialname): \texttt{pinned} (gelenkige Verbindung)
+  \item \textbf{Stahlbeton + Stahlbeton}: \texttt{fixed} (eingespannt, monolithischer Verbund)
+  \item \textbf{Fallback} (E < 15\,000\,000\,kN/m²): \texttt{pinned}
+\end{itemize}
+
+\subsubsection{JAX-kompatible Location-Funktionen}
+
+Für JaxFEM werden die Randbedingungen als Python-Funktionen \texttt{location\_fns} übergeben, die JAX-seitig auf die Knotenkoordinaten angewendet werden. Alle Berechnungen innerhalb dieser Funktionen müssen \texttt{jnp}-Operationen sein (kein NumPy, kein KD-Tree), da sie im JAX-Tracing-Kontext ausgeführt werden. Die Dirichlet-BCs werden als \texttt{dirichlet\_bc\_info}-Dictionary mit den zugehörigen Wert-Funktionen übergeben.
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{FEM-Formulierung (Schritt 15--16)}
 
 \subsection{Konstitutives Gesetz — Lineare 3D-Elastizität}
 
-Das Materialverhalten wird durch das isotrope Hooke'sche Gesetz beschrieben:
-
+Das Materialverhalten wird durch das isotrope Hooke'sche Gesetz beschrieben. Der Cauchy-Spannungstensor ist:
 \begin{equation}
   \boldsymbol{\sigma} = \lambda\,\mathrm{tr}(\boldsymbol{\varepsilon})\,\mathbf{I} + 2\mu\,\boldsymbol{\varepsilon}
+  \label{eq:hooke}
 \end{equation}
 
-mit dem symmetrischen Verzerrungstensor:
+mit dem symmetrischen Kleinschen Verzerrungstensor:
 \begin{equation}
-  \boldsymbol{\varepsilon} = \frac{1}{2}\left(\nabla\mathbf{u} + (\nabla\mathbf{u})^\top\right)
+  \boldsymbol{\varepsilon}(\mathbf{u}) = \frac{1}{2}\bigl(\nabla\mathbf{u} + (\nabla\mathbf{u})^\top\bigr)
 \end{equation}
 
-und den Lamé-Parametern:
-\begin{equation}
-  \lambda = \frac{E\,\nu}{(1+\nu)(1-2\nu)}, \qquad
-  \mu = \frac{E}{2(1+\nu)}
-\end{equation}
+\subsection{Schwache Form und FEM-Diskretisierung}
 
-\subsection{Effektives Material (Volumenhomogenisierung)}
-
-Das effektive Material des Gesamtsystems wird volumengewichtet berechnet (Voigt-Schranke / iso-Dehnungsannahme):
-\begin{equation}
-  E_\text{eff} = \frac{\sum_i E_i \cdot V_i}{\sum_i V_i}, \qquad
-  \nu_\text{eff} = \frac{\sum_i \nu_i \cdot V_i}{\sum_i V_i}
-\end{equation}
-
-Diese Formulierung entspricht der oberen Voigt-Schranke der Homogenisierungstheorie und ist für grobe Netzauflösungen mit überwiegend gleichartigen Materialien eine konservative Näherung. Für heterogene Verbundsysteme (z.\,B. Stahl-Beton-Verbund) ist ein bauteilweises Materialfeld anzustreben (vgl.\ Abschnitt~\ref{sec:limits}).
-
-\subsection{Randwertproblem}
-
-Gesucht ist das Verschiebungsfeld $\mathbf{u}: \Omega \to \mathbb{R}^3$ mit:
+Das zu lösende Randwertproblem lautet: Gesucht ist das Verschiebungsfeld $\mathbf{u}: \Omega \to \mathbb{R}^3$ mit
 \begin{align}
-  -\mathrm{div}\,\boldsymbol{\sigma} &= \mathbf{0} \quad \text{in } \Omega \\
-  \mathbf{u} &= \mathbf{0} \quad \text{auf } \Gamma_D \text{ (Einspannung)} \\
-  \boldsymbol{\sigma}\,\mathbf{n} &= \mathbf{q} \quad \text{auf } \Gamma_N \text{ (Flächenlast)}
+  -\mathrm{div}\,\boldsymbol{\sigma}(\mathbf{u}) &= \mathbf{0} \quad \text{in } \Omega \\
+  \mathbf{u} &= \mathbf{0} \quad \text{auf } \Gamma_D \text{ (Einspannflächen)} \\
+  \boldsymbol{\sigma}(\mathbf{u})\,\mathbf{n} &= -q_\text{ges}\,\mathbf{e}_z \quad \text{auf } \Gamma_N \text{ (Lastfläche)}
 \end{align}
 
-mit $\mathbf{q} = (0,\,0,\,-q_\text{ges})^\top$ und $q_\text{ges} = \gamma \cdot h + q_\text{Nutz}$.
+Die Gesamtlast setzt sich zusammen aus Eigengewicht und Nutzlast:
+\begin{equation}
+  q_\text{ges} = \gamma_\text{Beton} \cdot h_\text{Decke} + q_\text{Nutz}
+  = 25{,}0 \cdot 0{,}2 + 5{,}0 = 10{,}0 + 5{,}0 = 15{,}0 \cdot \text{(Deckenhöhe variabel)}\;\text{kN/m²}
+\end{equation}
 
-\subsection{Von-Mises-Vergleichsspannung}
+Im Duplex-Beispiel ergibt sich $q_\text{ges} = 21{,}81$\,kN/m² (abhängig von der gemittelten Deckenhöhe des Modells).
 
+\subsection{Tet4-Element}
+
+Das lineare Tetraederelement (Tet4) hat 4 Knoten und $4 \times 3 = 12$ Freiheitsgrade. Die bilinearen Formfunktionen in baryzentrischen Koordinaten $(\xi_1, \xi_2, \xi_3, \xi_4)$ mit $\sum \xi_i = 1$ lauten:
+\[
+  N_1 = \xi_1, \quad N_2 = \xi_2, \quad N_3 = \xi_3, \quad N_4 = \xi_4
+\]
+
+Die Transformation auf physikalische Koordinaten erfolgt über die Jacobi-Matrix:
+\begin{equation}
+  \mathbf{J} = \begin{bmatrix}
+    \mathbf{p}_2 - \mathbf{p}_1 \\
+    \mathbf{p}_3 - \mathbf{p}_1 \\
+    \mathbf{p}_4 - \mathbf{p}_1
+  \end{bmatrix}^\top \in \mathbb{R}^{3\times 3}
+\end{equation}
+
+Die Formfunktions-Gradienten im physikalischen Raum sind:
+\begin{equation}
+  \frac{\partial \mathbf{N}}{\partial \mathbf{x}} = \frac{\partial \mathbf{N}}{\partial \boldsymbol{\xi}} \cdot \mathbf{J}^{-1}
+\end{equation}
+
+Das Tet4-Element hat einen konstanten Verzerrungszustand im gesamten Element (constant strain tetrahedron). Für eine genaue Erfassung von Spannungsgradienten sind daher feine Netze erforderlich — dies ist der Hauptgrund für die Empfehlung \texttt{MESH\_SIZE} $\leq 0{,}3$\,m in zukünftigen Berechnungen.
+
+\subsection{JaxFEM-Problemklasse}
+
+Die Materialformulierung wird in JaxFEM als Python-Klasse definiert, die von \texttt{Problem} erbt:
+
+\begin{lstlisting}[caption={JaxFEM-Problemklasse IFC\_SG\_FEM}]
+class IFC_SG_FEM(Problem):
+    def get_tensor_map(self):
+        def stress(u_grad):
+            eps = 0.5 * (u_grad + u_grad.T)
+            return lmbda * jnp.trace(eps) * jnp.eye(self.dim) \
+                   + 2.0 * mu * eps
+        return stress
+
+    def get_surface_maps(self):
+        def load_top(u, x):
+            return jnp.array([0.0, 0.0, q])   # Drucklast in -z
+        return [load_top]
+\end{lstlisting}
+
+\texttt{get\_tensor\_map()} definiert die Voigt-artige Materialmatrix; \texttt{get\_surface\_maps()} liefert die Neumann-Randbedingung als Vektorfunktion. Der Solver wird mit UMFPACK als direktem Gleichungssystemlöser aufgerufen: \texttt{solver(problem, solver\_options=\{'umfpack\_solver': \{\}\})}.
+
+\subsection{Von-Mises-Vergleichsspannung und Spannungsberechnung (Schritt 16)}
+
+Die Von-Mises-Vergleichsspannung ist definiert als:
 \begin{equation}
   \sigma_\text{vM} = \sqrt{\frac{3}{2}\,\mathbf{s}:\mathbf{s}},
   \qquad \mathbf{s} = \boldsymbol{\sigma} - \frac{1}{3}\,\mathrm{tr}(\boldsymbol{\sigma})\,\mathbf{I}
 \end{equation}
 
-\subsection{Diskretisierung — Tet4-Element}
-
-Lineares Tetraederelement mit 4 Knoten und 12 Freiheitsgraden. Die Formfunktions-Ableitungen im physikalischen Raum ergeben sich als:
-\begin{equation}
-  \frac{\partial N}{\partial \mathbf{x}} = \frac{\partial N}{\partial \boldsymbol{\xi}} \cdot \mathbf{J}^{-1},
-  \qquad
-  \mathbf{J} = \begin{bmatrix}
-    \mathbf{p}_2 - \mathbf{p}_1 \\
-    \mathbf{p}_3 - \mathbf{p}_1 \\
-    \mathbf{p}_4 - \mathbf{p}_1
-  \end{bmatrix}^\top
-\end{equation}
+Die Funktion \texttt{compute\_stress\_tet4()} implementiert eine Knotenaveragierung: Für jedes Element wird der Cauchy-Spannungstensor aus dem Verschiebungsgradient berechnet (ein Gauss-Punkt im Mittelpunkt des Tet4), und die 6 unabhängigen Komponenten ($\sigma_{11}, \sigma_{22}, \sigma_{33}, \sigma_{12}, \sigma_{13}, \sigma_{23}$) werden zu den anliegenden Knoten akkumuliert und am Ende durch die Anzahl der anliegenden Elemente dividiert. Dies entspricht einer einfachen Knotenaveragierung (keine SPR-Glättung).
 
 % ═══════════════════════════════════════════════════════════════════════
-\section{Ergebnisse — Erster Meilenstein}
+\section{Ergebnisse — Erster Meilenstein (Schritt 17--18)}
 
-\subsection{Modell}
+\subsection{Modell-Kenngrößen}
 
-Getestet mit: \texttt{Ifc2x3\_Duplex\_Architecture.ifc} (öffentliche IFC-Beispieldatei).
+Getestet mit der öffentlich verfügbaren Datei \texttt{Ifc2x3\_Duplex\_Architecture.ifc}, einem zweigeschossigen Wohngebäude aus dem buildingSMART-Datensatz.
 
 \begin{table}[H]
 \centering
-\caption{Modell-Kenngrößen}
+\caption{Modell- und Netz-Kenngrößen}
 \begin{tabular}{lr}
 \toprule
 \textbf{Kenngröße} & \textbf{Wert} \\
 \midrule
-IFC-Bauteile (gesamt) & 149 \\
-Graph-Knoten (nach Clustering) & 13 \\
-Graph-Kanten & 24 (IFC: 0 / Geo: 24) \\
+IFC-Bauteile (gesamt geparst) & 149 \\
+Graph-Knoten (nach Clustering/Bypass) & 13 \\
+Graph-Kanten (gesamt) & 24 \\
+\quad davon IFC-Kanten & 0 \\
+\quad davon geometrische Kanten & 24 \\
+Einspannknoten (foundation\_nodes) & variabel (walls + columns ohne below) \\
+Lastflächenknoten (load\_surface\_nodes) & alle slabs \\
 Tet4-Elemente & 1\,958 \\
 FEM-Knoten & 639 \\
 Freiheitsgrade (DOF) & 1\,917 \\
-$E_\text{eff}$ & 30\,000\,000\,kN/m² \\
-$\nu_\text{eff}$ & 0{,}20 \\
-Gesamtlast $q$ & 21{,}81\,kN/m² \\
+Effektiver E-Modul $E_\text{eff}$ & 30\,000\,000\,kN/m² \\
+Effektive Querdehnzahl $\nu_\text{eff}$ & 0{,}20 \\
+Gesamtlast $q_\text{ges}$ & 21{,}81\,kN/m² \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -398,68 +687,110 @@ Gesamtlast $q$ & 21{,}81\,kN/m² \\
 
 \begin{table}[H]
 \centering
-\caption{FEM-Ergebnisse (Meilenstein 1)}
-\begin{tabular}{llr}
+\caption{FEM-Ergebnisse (Meilenstein 1, \texttt{MESH\_SIZE} = 1{,}0\,m)}
+\begin{tabular}{llrr}
 \toprule
-\textbf{Größe} & \textbf{Symbol} & \textbf{Wert} \\
+\textbf{Größe} & \textbf{Symbol} & \textbf{Wert} & \textbf{Einheit} \\
 \midrule
-Maximale z-Durchbiegung & $u_{z,\text{max}}$ & $-2{,}064$\,mm \\
-Maximale Gesamtverschiebung & $|\mathbf{u}|_\text{max}$ & $2{,}065$\,mm \\
-Maximale Von-Mises-Spannung & $\sigma_{\text{vM,max}}$ & $7\,529{,}7$\,kN/m² \\
-Minimale Druckspannung & $\sigma_{zz,\text{min}}$ & $-9\,072{,}6$\,kN/m² \\
+Maximale z-Absenkung & $u_{z,\text{min}}$ & $-2{,}064$ & mm \\
+Maximale Gesamtverschiebung & $|\mathbf{u}|_\text{max}$ & $2{,}065$ & mm \\
+Maximale Von-Mises-Spannung & $\sigma_{\text{vM,max}}$ & $7\,529{,}7$ & kN/m² \\
+Minimale Druckspannung & $\sigma_{zz,\text{min}}$ & $-9\,072{,}6$ & kN/m² \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-\textbf{Einordnung:} $\sigma_{\text{vM,max}} = 7\,530$\,kN/m² $\approx 7{,}5$\,MPa liegt deutlich unter der charakteristischen Betondruckfestigkeit von $f_{ck} = 25$\,MPa (C25/30). Die Druckspannung $\sigma_{zz,\text{min}} = -9{,}1$\,MPa entspricht etwa $36\%$ von $f_{ck}$ — plausibel für eine Grobnetz-Rechnung mit $h = 1$\,m.
+\subsection{Plausibilitätsbewertung}
+
+\textbf{Verschiebungen:} Die maximale Durchbiegung von $u_{z,\text{min}} = -2{,}064$\,mm ist mit der groben Netzauflösung ($h = 1$\,m) konsistent. Für eine C25/30-Stahlbetondecke mit $q = 21{,}81$\,kN/m² und einer Spannweite im Bereich von $l \approx 4$\,m wäre der theoretische Grenzwert nach DIN EN 1990 ($l/300 \approx 13$\,mm) nicht überschritten — was für ein Grobnetz mit eher konservativer (steifer) Abschätzung plausibel ist.
+
+\textbf{Spannungen:} $\sigma_\text{vM,max} = 7\,530$\,kN/m² $= 7{,}53$\,MPa liegt deutlich unter der charakteristischen Betondruckfestigkeit $f_{ck} = 25$\,MPa (C25/30). Der Ausnutzungsgrad beträgt ca.\ $30\%$, was für eine Grobnetz-Rechnung mit konservativem Materialgesetz plausibel ist. Die minimale Druckspannung $\sigma_{zz,\text{min}} = -9{,}1$\,MPa entspricht ca.\ $36\%$ von $f_{ck}$ — ebenfalls im Bereich einer nicht ausgenutzten Konstruktion.
+
+\textbf{Vorzeichenkonsistenz:} Der in der Implementierung vorhandene Assertion-Test \texttt{assert uz.min() < 0} stellt sicher, dass eine Absenkung (negatives $u_z$) vorhanden ist. Würde das Vorzeichen der Lastfunktion in \texttt{get\_surface\_maps()} vertauscht sein, würde dieser Test fehlschlagen.
+
+\textbf{Konvergenzhinweis:} Für eine gesicherte Aussage ist ein Konvergenztest mit abgestuften Netzfeinheiten ($h = 1{,}0 \to 0{,}5 \to 0{,}3 \to 0{,}2$\,m) erforderlich (Prio~1 der Roadmap). Das Tet4-Element mit konstantem Dehnungsfeld neigt zur Überschätzung der Steifigkeit bei groben Netzen.
+
+\subsection{Ergebnisrückfluss in den Scene Graph (Schritt 18)}
+
+Die Funktion \texttt{write\_fem\_to\_graph()} weist jedem Graphknoten die FEM-Ergebnisse des zugehörigen räumlichen Bereichs zu: Für jeden Knoten werden alle FEM-Netzknoten innerhalb der Bauteil-BBox (mit Toleranz $10^{-6}$\,m) identifiziert und darüber $u_{z,\text{min}}$, $|\mathbf{u}|_\text{max}$ und $\sigma_{\text{vM,max}}$ berechnet. Damit wird der ursprünglich geometrisch-semantische Scene Graph zu einem vollständigen \textbf{strukturmechanischen Wissensgraphen} erweitert, der für die weitere Auswertung — insbesondere die LLM-Integration — zur Verfügung steht.
 
 % ═══════════════════════════════════════════════════════════════════════
-\section{LLM-Integration}
+\section{LLM-Integration (Schritt 19)}
 
-Der angereicherte Scene Graph wird als strukturierter Textprompt serialisiert, der direkt an Claude oder ein anderes LLM übergeben werden kann:
+\subsection{Prompt-Generierung}
 
-\begin{lstlisting}[caption={LLM-Prompt-Schema (graph\_to\_llm\_prompt)}]
+Die Funktion \texttt{graph\_to\_llm\_prompt()} serialisiert den angereicherten Scene Graph in einen strukturierten Textprompt. Dieser enthält für jeden Knoten alle Attribute (IFC-Name, Klasse, Typ, Schwerpunkt, Volumen, $E$-Modul, $u_{z,\text{min}}$, $\sigma_\text{vM,max}$) sowie alle Kanten mit Beziehungstyp und Quelle. Abschließend werden die globalen FEM-Kenngrößen angefügt.
+
+\begin{lstlisting}[style=plain, caption={Schema des LLM-Prompts (graph\_to\_llm\_prompt)}]
 === IFC TRAGWERK - SCENE GRAPH + FEM-ERGEBNISSE ===
 
 BAUTEILE (Knoten):
   [wall_0]  IFC=BasicWall:... (IfcWall)  Typ=wall
             Schwerpunkt=(1.2, 0.1, 1.4) m  Volumen=3.136 m3
-            E=30000000 kN/m2  uz_min=-1.2 mm  sigma_vM=4200 kN/m2
+            E=30000000 kN/m2  uz_min=-1.2 mm  sigma_vM_max=4200.0 kN/m2
 
 BEZIEHUNGEN (Kanten):
-  wall_0 -> slab_0  [adjacent | geometric]
-  slab_0 -> wall_1  [above    | geometric]
+  wall_0  --[adjacent | geometric]-->  slab_0
+  slab_0  --[above    | geometric]-->  wall_1
 
-KENNGROESSEN:
-  Gesamtlast  q  = 21.81 kN/m2
-  u_z_max       = -2.064 mm
-  sigma_vM_max  = 7529.7 kN/m2
+FEM-ERGEBNISSE (Global):
+  Max. Absenkung   : -2.064 mm
+  Max. Verformung  :  2.065 mm
+  Max. sigma_vM    : 7529.7 kN/m2
+  Gesamtlast       : 21.81 kN/m2
 \end{lstlisting}
 
-Dieser Prompt ermöglicht es einem LLM, strukturmechanische Fragen zu beantworten wie:
+\subsection{Anwendungsbeispiele}
+
+Dieser Prompt ermöglicht einem LLM (z.\,B. Claude) die Beantwortung strukturmechanischer Fragen über das Gebäudemodell:
+
 \begin{itemize}[noitemsep]
-  \item „Welches Bauteil ist am stärksten beansprucht?"
-  \item „Ist die Durchbiegung normkonform nach DIN EN 1990 ($l/300$)?"
-  \item „Welche Maßnahmen reduzieren die kritische Spannung?"
+  \item „Welches Bauteil hat die größte Von-Mises-Spannung, und was ist strukturmechanisch der Grund dafür?"
+  \item „Ist die Durchbiegung der Decke normkonform nach DIN EN 1990 Tabelle~B.2 ($u_{z} \leq l/300$)?"
+  \item „Welche Bauteile sind direkt über der Stütze und nehmen deren Drucklast auf?"
+  \item „In welchem Stockwerk liegt der kritisch beanspruchte Bereich?"
+  \item „Welche Maßnahmen könnten die kritische Spannung um 20\% reduzieren?"
 \end{itemize}
 
+\subsection{API-Anbindung}
+
+Der Prompt-Export ist implementiert; der automatische API-Call ist als Prio~4 in der Roadmap vorgesehen (Abschnitt~\ref{sec:roadmap}):
+
+\begin{lstlisting}[caption={Geplante Claude-API-Anbindung (Prio 4)}]
+import anthropic
+client = anthropic.Anthropic()
+response = client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=1024,
+    messages=[{
+        "role": "user",
+        "content": prompt + "\n\nFRAGE: " + question
+    }]
+)
+\end{lstlisting}
+
 % ═══════════════════════════════════════════════════════════════════════
-\section{Vergleich mit dem Vorgänger-Notebook}
+\section{Vergleich: Vorgänger vs.\ neues Notebook}
 
 \begin{table}[H]
 \centering
-\caption{IFC\_FEM\_3D.ipynb vs. IFC\_SceneGraph\_FEM.ipynb}
-\begin{tabular}{lll}
+\caption{IFC\_FEM\_3D.ipynb (Generation 1) vs.\ IFC\_SceneGraph\_FEM.ipynb (Generation 2)}
+\begin{tabular}{p{3.5cm}p{4.5cm}p{5.5cm}}
 \toprule
 \textbf{Merkmal} & \textbf{IFC\_FEM\_3D} & \textbf{IFC\_SceneGraph\_FEM} \\
 \midrule
-Netzgeometrie & BBox-Tet4 & Echte IFC-Triangulierung \\
-Randbedingungen & Manuell & \textbf{Automatisch aus Graph} \\
-Lastflächen & Manuell & \textbf{Automatisch aus Topologie} \\
-Material & Manuell & \textbf{Automatisch aus IFC} \\
-Struktursemantik & Keine & \textbf{DiGraph, 9 Kanten-Typen} \\
-LLM-Export & Keine & \textbf{Strukturierter Prompt} \\
-Ergebnisrückfluss & Keine & \textbf{FEM $\to$ Graphknoten} \\
+Netzgeometrie & Achsenparallele BBox-Approximation & \textbf{Echte IFC-Triangulierung} (STL-Merge via ifcopenshell.geom) \\
+Randbedingungen & Manuell festgelegte $z$-Ebene & \textbf{Automatisch aus Graph-Topologie} \\
+Lastflächen & Manuell definiert & \textbf{Automatisch aus Topologie} \\
+Material & Manuell (ein globaler $E$-Wert) & \textbf{Automatisch aus IFC-Psets, volumengewichtet} \\
+Struktursemantik & Keine & \textbf{NetworkX DiGraph, 7 Kantentypen} \\
+IFC-Relationships & Keine & \textbf{IfcRelAggregates, IfcRelAssociatesMaterial} \\
+DBSCAN-Clustering & Keine & \textbf{Pro semantischem Label} \\
+Feature-Extraktion & Keine & \textbf{Volumen, Höhe, Kompaktheit, Aspektverhältnis} \\
+Kontaktzonen-BCs & Keine & \textbf{Material-basiert (Holz: gelenkig, Beton: eingespannt)} \\
+LLM-Export & Keine & \textbf{Strukturierter Textprompt} \\
+Ergebnisrückfluss & Keine & \textbf{FEM-Werte in Graphknoten} \\
+JSON-Export & Keine & \textbf{Vollständiger Scene-Graph-JSON} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -468,51 +799,123 @@ Ergebnisrückfluss & Keine & \textbf{FEM $\to$ Graphknoten} \\
 \section{Bekannte Einschränkungen (Version 1.0)}
 \label{sec:limits}
 
-\begin{enumerate}[noitemsep]
-  \item \textbf{IFC-Kanten:} Im Duplex-Beispiel liefert \texttt{IfcRelAggregates} keine Kanten (0 IFC-Kanten). Alle 24 Kanten sind geometrisch. Das ist modellspezifisch, kein Algorithmusfehler.
-  \item \textbf{Elementgröße:} \texttt{MESH\_SIZE = 1{,}0\,m} ist für Produktionsberechnungen zu grob. Empfehlung: 0{,}2–0{,}5\,m.
-  \item \textbf{Homogenisierung:} Volumengewichtetes $E_\text{eff}$ — vereinfachend für Verbundsysteme. Bauteilweises $E$-Feld ist anzustreben.
-  \item \textbf{LLM-Auto-Call:} Prompt-Ausgabe implementiert, automatischer API-Call noch nicht.
+\begin{enumerate}
+
+  \item \textbf{Fehlende IFC-Kanten im Duplex-Beispiel:} Das Modell \texttt{Ifc2x3\_Duplex\_Architecture.ifc} enthält keine \texttt{IfcRelAggregates}-Beziehungen zwischen tragwerksrelevanten Bauteilen (0 IFC-Kanten im finalen Graphen). Alle 24 Kanten sind geometrischer Herkunft. Der Algorithmus ist korrekt implementiert; das Problem liegt im Quellmodell. Bei IFC4-Dateien mit vollständig befüllten Relationships (z.\,B. aus Revit-Exports mit Structural Analysis Extension) ist ein deutlich reichhaltigerer Graph zu erwarten.
+
+  \item \textbf{Grobe Netzauflösung:} \texttt{MESH\_SIZE = 1{,}0\,m} liefert nur 1\,958 Elemente und ist für quantitative Aussagen zu grob. Die Tet4-Spannungen konvergieren langsam; bei $h = 1$\,m ist die Spannung um den Faktor 2–5 vom Konvergenzwert entfernt. Empfehlung für Produktionsberechnungen: $h = 0{,}2$–$0{,}3$\,m (entspricht ca.\ 50\,000–200\,000 Elemente für das Duplex-Modell).
+
+  \item \textbf{Voigt-Homogenisierung:} Das volumengewichtete $E_\text{eff}$ ist eine obere Schranke. Für reine Stahlbeton-Gebäude ist sie exakt; für Verbundkonstruktionen (Holz-Beton, Stahl-Beton) überschätzt sie die Steifigkeit. Bauteilweises heterogenes Materialfeld ist anzustreben.
+
+  \item \textbf{Nur LLE (lineare 3D-Elastizität):} Das Materialmodell berücksichtigt weder Plastizität, Rissbildung noch geometrische Nichtlinearität. Für die Bewertung des Grenzzustands der Tragfähigkeit nach DIN EN 1992 ist eine nichtlineare Berechnung erforderlich.
+
+  \item \textbf{LLM-Auto-Call noch nicht integriert:} Der Prompt wird generiert und ausgegeben; der automatische API-Call an Claude ist Prio~4 der Roadmap.
+
+  \item \textbf{Nur IFC2x3-Beispieldatei getestet:} Das Parsing wurde auf IFC2x3 und das Demo-Modell (IFC4) getestet. Die Robustheit gegenüber verschiedenen IFC-Exportern (Revit, ArchiCAD, FreeCAD) und IFC-Versionen ist noch zu validieren.
+
 \end{enumerate}
 
 % ═══════════════════════════════════════════════════════════════════════
-\section{Nächste Entwicklungsschritte}
+\section{Roadmap und Nächste Entwicklungsschritte}
+\label{sec:roadmap}
 
 \begin{table}[H]
 \centering
-\caption{Roadmap}
-\begin{tabular}{cll}
+\caption{Priorisierte Entwicklungsschritte}
+\begin{tabular}{cp{4.5cm}p{8cm}}
 \toprule
-\textbf{Prio} & \textbf{Schritt} & \textbf{Ziel} \\
+\textbf{Prio} & \textbf{Schritt} & \textbf{Technisches Ziel und Motivation} \\
 \midrule
-1 & Elementgröße 0{,}3\,m, Konvergenztest & Ergebnisqualität \\
-2 & Bauteilweises Materialfeld & Heterogenes Modell \\
-3 & IFC4 mit befüllten Psets & Echte Material-BCs \\
-4 & LLM-Auto-Call via Claude API & Automatische Bewertung \\
-5 & JSON $\to$ CesiumJS-Einfärbung & Visualisierung in geobim.app \\
-6 & Scan-to-BIM-Eingang (Punktwolke $\to$ IFC) & Direkteinspeisung aus Bestandserfassung~\cite{chen2026scan, mahmoud2026scan} \\
-7 & Gradient-basierte Formoptimierung & JAX-Differenzierbarkeit nutzen \\
+1 & Konvergenztest ($h = 1{,}0 \to 0{,}2$\,m) & Quantitative Netzkonvergenzkurve für Verschiebungen und Spannungen; Bestimmung der notwendigen Netzfeinheit für normkonforme Aussagen. \\
+2 & Bauteilweises Materialfeld & Subregionale JaxFEM-Probleme oder feldweise $E$-Funktion; Reuss- und Voigt-Schranken vergleichen. \\
+3 & IFC4 mit befüllten Psets & Testen mit einem Revit-Export (IFC4 + \texttt{Pset\_MaterialMechanical}); Validierung der automatischen Material-Extraktion. \\
+4 & LLM-Auto-Call via Anthropic API & Automatische Übergabe des LLM-Prompts an \texttt{claude-sonnet-4-6} nach erfolgreicher FEM-Berechnung; strukturierte Antwortparsing. \\
+5 & JSON $\to$ CesiumJS-Einfärbung & Export der $\sigma_\text{vM}$-Werte als JSON für CesiumJS-Einfärbung in geobim.app; Verknüpfung der FEM-Ergebnisse mit der geographischen Lage des Gebäudes. \\
+6 & Scan-to-BIM-Eingang & Direkteinspeisung einer Punktwolke (.las/.ply) über den PointCloudEditor (PicoGK-Pipeline) als IFC-Eingabe~\cite{chen2026scan, mahmoud2026scan}. \\
+7 & Gradientenbasierte Formoptimierung & Nutzung der JAX-Differenzierbarkeit für Topologieoptimierung nach SIMP-Methode; direkt aus dem Notebook ohne Solver-Umbau. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
 % ═══════════════════════════════════════════════════════════════════════
-\section{Abhängigkeiten}
+\section{Softwareabhängigkeiten und Umgebung}
 
-\begin{lstlisting}[language={}, numbers=none]
-ifcopenshell >= 0.8
-jax, jaxlib
-numpy
-networkx
-scikit-learn       # DBSCAN
-scipy              # ConvexHull
-gmsh
-meshio
-pyvista
-matplotlib
+\subsection{Python-Pakete}
+
+\begin{lstlisting}[style=plain, numbers=none]
+ifcopenshell >= 0.8   # IFC-Parsing, Geometrieerzeugung, Relationship-Analyse
+jax, jaxlib           # Autodiff-Framework, JIT-Kompilierung
+jax_fem               # FEM-Solver (git: tianjuxue/jax-fem)
+numpy                 # Numerische Berechnungen (als onp importiert)
+networkx              # Scene Graph (DiGraph), Graph-Analyse
+scikit-learn          # DBSCAN-Clustering
+scipy                 # ConvexHull (Feature-Extraktion), cKDTree
+gmsh                  # Netzgenerierung (Tet4, Python-API)
+meshio                # Netzformat-Konvertierung (.msh -> .vtu)
+pyvista               # 3D-Visualisierung, Warp-by-Vector
+matplotlib            # 2D-Visualisierungen (Schnittbilder, Balkendiagramme)
+tqdm                  # Fortschrittsanzeige
 \end{lstlisting}
 
-Conda-Umgebung: \texttt{jaxfem} (siehe \texttt{environment.yml} im JaxFEM-Root).
+\subsection{Conda-Umgebung}
+
+\begin{lstlisting}[style=plain, numbers=none]
+conda activate jaxfem   # Umgebung: environment.yml im JaxFEM-Root
+\end{lstlisting}
+
+Die Umgebung enthält alle Abhängigkeiten inkl.\ CUDA-kompatiblem JAX (falls GPU verfügbar). Für reine CPU-Ausführung genügt \texttt{jaxlib==0.4.x} (kein CUDA).
+
+\subsection{Ausgabedateien}
+
+\begin{table}[H]
+\centering
+\caption{Erzeugte Ausgabedateien}
+\begin{tabular}{ll}
+\toprule
+\textbf{Datei} & \textbf{Inhalt} \\
+\midrule
+\texttt{data/ifc\_scene\_graph\_fem.json} & Vollständiger Scene Graph mit FEM-Ergebnissen (JSON) \\
+\texttt{data/vtk/ifc\_sg\_fem.vtu} & VTK-Netz mit allen Feldgrößen (Paraview-kompatibel) \\
+\texttt{data/mesh.msh} & GMSH-Netz (für Nachbearbeitung mit GMSH-GUI) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ═══════════════════════════════════════════════════════════════════════
+\section{Zusammenfassung aller Notebook-Schritte}
+
+\begin{table}[H]
+\centering
+\caption{Vollständige Schritt-Übersicht (IFC\_SceneGraph\_FEM.ipynb)}
+\small
+\begin{tabular}{clp{9cm}}
+\toprule
+\textbf{Schritt} & \textbf{Bezeichnung} & \textbf{Methode / Ergebnis} \\
+\midrule
+0 & Importe \& Fallbacks & Python-Pakete; NetworkX-Fallback-Klasse falls nicht installiert \\
+1 & Konfiguration & Zentrales Parameter-Dictionary; \texttt{IFC\_LABEL\_MAP} \\
+2 & IFC laden & Demo-IFC oder eigene Datei; Z-Normalisierung auf $z=0$ \\
+3 & Bauteil-Parsing & BBox, Material, synthetische Punktwolke; $Z_\text{global,min}$-Normierung \\
+4 & Punktwolke visualisieren & XZ + YZ Schnittbilder (Matplotlib) \\
+5 & IFC-Relationship-Analyse & IfcRelAggregates, IfcRelAssociatesMaterial, Stockwerk-Map \\
+6 & DBSCAN-Clustering & Pro Label; IFC-BBox-Snap; Bypass für echte IFC-Daten \\
+7 & Feature-Extraktion & Volumen, Oberfläche, Kompaktheit, Höhe, Aspektverhältnis \\
+8 & Räumliche Beziehungen & above/below/adjacent/inside/near + IFC-Kanten \\
+9 & Scene Graph & NetworkX DiGraph; Knoten- und Kanten-Attribute \\
+10 & Graph visualisieren & XY-Grundriss + Federlayout (Matplotlib) \\
+11 & Graph-Analyse & Einspannknoten, Lastflächenknoten, Metrik-Report \\
+12 & Material-Mapping & $E_\text{eff}$, $\nu_\text{eff}$, $\mu$, $\lambda$ (Voigt) \\
+13 & GMSH Tet4-Netz & STL-Merge, ClassifySurfaces, fragment(), Vernetzung \\
+14 & Randbedingungen & Kontaktzonen-BCs, material-basiert; JAX-location\_fns \\
+15 & JaxFEM-Solver & Lineare 3D-Elastizität, UMFPACK; $\mathbf{u}$-Lösung \\
+16 & Spannungen & Tet4-Knotenaveragierung; $\sigma_{ij}$, $\sigma_\text{vM}$ \\
+17 & PyVista-Visualisierung & $u_z$, $|\mathbf{u}|$, $\sigma_\text{vM}$, $\sigma_{zz}$; Warp-Faktor-Plot \\
+18 & Ergebnisrückfluss & FEM-Werte in Graphknoten; JSON-Export \\
+19 & LLM-Prompt & Strukturierter Text; Beispielabfragen für Spatial AI \\
+20 & Zusammenfassung & Konsolen-Report aller Kenngrößen \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 % ═══════════════════════════════════════════════════════════════════════
 \section*{Referenzen}
@@ -585,7 +988,7 @@ Xue, T. et al.\ JaxFEM: A differentiable finite element solver in JAX.
 
 \bibitem{ifcopenshell}
 IfcOpenShell contributors.
-IfcOpenShell — Open Source IFC Library.
+IfcOpenShell --- Open Source IFC Library.
 \url{https://ifcopenshell.org}
 
 \end{thebibliography}
